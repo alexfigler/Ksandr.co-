@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ListingIQ Free Audit — Ksandr</title>
+<meta name="description" content="Free AI-powered vacation rental audit. Scored across 6 categories in under 5 minutes.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#3d4660;--slate:#6f7789;--mist:#ccd5df;--linen:#e7dfd9;--dune:#e3b59b;--white:#fff;--ink:#1e2130}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--linen);color:var(--navy);min-height:100vh}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(231,223,217,.97);border-bottom:.5px solid var(--mist);backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+.k-box{border:1.5px solid var(--navy);width:32px;height:32px;display:flex;align-items:center;justify-content:center}
+.k-letter{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--navy);line-height:1}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;letter-spacing:.12em;color:var(--navy)}
+.nav-back{font-size:11px;letter-spacing:.06em;color:var(--slate);text-decoration:none;border-bottom:.5px solid var(--mist)}
+.page{max-width:620px;margin:0 auto;padding:80px 24px 80px}
+.card{background:var(--white);border:.5px solid var(--mist);padding:36px;margin-top:20px}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dune);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:inline-block;width:14px;height:.5px;background:var(--dune);flex-shrink:0}
+.step-h{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--navy);line-height:1.08;margin-bottom:6px}
+.step-h em{font-style:italic;color:var(--dune)}
+.step-sub{font-size:13px;color:var(--slate);line-height:1.7;margin-bottom:26px}
+.prog-dots{display:flex;justify-content:space-between;margin-bottom:10px}
+.prog-item{display:flex;flex-direction:column;align-items:center;gap:5px}
+.prog-circle{width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;border:1.5px solid;transition:all .3s}
+.prog-circle.done{background:var(--navy);border-color:var(--navy);color:var(--linen)}
+.prog-circle.active{background:var(--dune);border-color:var(--dune);color:var(--ink)}
+.prog-circle.idle{background:transparent;border-color:var(--mist);color:var(--mist)}
+.prog-label{font-size:9px;letter-spacing:.06em;text-transform:uppercase}
+.prog-label.done,.prog-label.active{color:var(--navy)}
+.prog-label.idle{color:var(--mist)}
+.prog-track{height:2px;background:var(--mist);margin-bottom:28px}
+.prog-fill{height:100%;background:var(--navy);transition:width .45s ease}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);font-weight:500}
+.field input,.field select,.field textarea{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--navy);background:var(--white);border:.5px solid var(--mist);padding:11px 14px;outline:none;width:100%;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--navy)}
+.field textarea{resize:vertical;line-height:1.65;min-height:80px}
+.field .hint{font-size:11px;color:var(--slate);margin-top:2px}
+.req{color:var(--dune)}
+.sel-wrap{position:relative}
+.sel-wrap::after{content:'↓';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--slate);pointer-events:none;font-size:12px}
+.sel-wrap select{padding-right:32px;cursor:pointer}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields{display:flex;flex-direction:column;gap:16px}
+.sub-note{background:rgba(227,181,155,.1);border:.5px solid rgba(227,181,155,.4);border-left:2px solid var(--dune);padding:10px 14px;margin-top:-6px}
+.sub-note p{font-size:11px;color:var(--slate);line-height:1.6}
+.btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:13px 26px;cursor:pointer;border:1px solid;transition:opacity .2s}
+.btn:hover{opacity:.82}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-navy{background:var(--navy);color:var(--linen);border-color:var(--navy)}
+.btn-dune{background:var(--dune);color:var(--ink);border-color:var(--dune)}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--mist)}
+.btn-full{width:100%}
+.btn-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.gate-icon{width:52px;height:52px;border:1.5px solid var(--dune);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--dune)}
+.gate-h{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:400;color:var(--navy);text-align:center;margin-bottom:10px}
+.gate-h em{font-style:italic;color:var(--dune)}
+.gate-sub{font-size:13px;color:var(--slate);line-height:1.75;margin-bottom:26px;text-align:center}
+.gate-note{font-size:11px;color:var(--slate);text-align:center;margin-top:10px}
+.spinner{width:44px;height:44px;border:2px solid var(--mist);border-top-color:var(--navy);border-radius:50%;animation:spin .9s linear infinite;margin:0 auto 28px}
+.load-msg{font-size:13px;color:var(--slate);animation:pulse 1.8s ease infinite;min-height:20px;text-align:center}
+.load-wrap{text-align:center;padding:40px 0}
+.error-box{background:rgba(220,38,38,.06);border:.5px solid rgba(220,38,38,.25);padding:12px 16px;margin-bottom:16px;font-size:13px;color:#991b1b;line-height:1.6}
+.report-head{background:var(--navy);margin:-36px -36px 24px;padding:28px 36px 24px}
+.report-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.report-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--linen);line-height:1.2;max-width:300px}
+.score-wrap{text-align:right;flex-shrink:0}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--linen);line-height:1}
+.score-lbl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:2px}
+.score-grade{font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1}
+.report-summary{font-size:13px;color:rgba(204,213,223,.75);line-height:1.75}
+.rev-pill{margin-top:16px;padding:12px 16px;background:rgba(227,181,155,.12);border-left:2px solid var(--dune)}
+.rev-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dune);margin-bottom:3px}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--linen)}
+.rev-sub{font-size:11px;color:rgba(204,213,223,.45);margin-top:2px}
+.cats-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+.cat-card{background:var(--white);border:.5px solid var(--mist);padding:15px 18px;margin-bottom:8px}
+.cat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.cat-left{display:flex;align-items:center;gap:9px}
+.cat-name{font-size:13px;font-weight:500;color:var(--navy)}
+.cat-badge{font-size:8px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:.5px solid}
+.cat-score{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--navy)}
+.cat-bar-track{height:3px;background:var(--mist);margin:7px 0 10px}
+.cat-bar-fill{height:100%;width:0%;transition:width .9s ease}
+.cat-finding{font-size:12px;color:var(--slate);line-height:1.6}
+.cat-action{font-size:11px;color:var(--navy);font-weight:500;margin-top:5px}
+.qw-box{background:var(--white);border:.5px solid var(--mist);padding:18px 20px;margin-bottom:14px}
+.qw-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+.qw-item{display:flex;gap:12px;padding:9px 0}
+.qw-item+.qw-item{border-top:.5px solid var(--mist)}
+.qw-num{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--dune);flex-shrink:0;line-height:1.4}
+.qw-text{font-size:12px;color:var(--slate);line-height:1.6}
+.priority-box{background:var(--navy);padding:18px 20px;margin-bottom:14px}
+.priority-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dune);margin-bottom:7px}
+.priority-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--linen);line-height:1.65}
+.pro-box{background:var(--linen);border:.5px solid var(--mist);border-left:3px solid var(--dune);padding:20px 22px;margin-bottom:14px}
+.pro-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dune);margin-bottom:7px}
+.pro-text{font-size:13px;color:var(--navy);line-height:1.7;margin-bottom:14px}
+.report-cta{text-align:center;padding:22px 0 6px;border-top:.5px solid var(--mist)}
+.report-cta p{font-size:13px;color:var(--slate);line-height:1.75;margin-bottom:16px}
+.page-footer{text-align:center;padding:28px 0 0;font-size:11px;color:var(--slate)}
+.page-footer a{color:var(--slate);text-decoration:none}
+.screen{display:none}
+.screen.active{display:block;animation:fadeUp .4s ease forwards}
+@media(max-width:500px){.card{padding:24px 18px}.report-head{margin:-24px -18px 20px;padding:22px 18px}.grid2{grid-template-columns:1fr}nav{padding:0 18px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="k-box"><span class="k-letter">K</span></div>
+    <span class="nav-brand">KSANDR</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to site</a>
+</nav>
+<div class="page">
+  <div id="intro">
+    <div class="eyebrow">Free Vacation Rental Audit</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;color:var(--navy);line-height:1.06;margin-bottom:10px">Your listing has untapped<br><em style="font-style:italic;color:var(--dune)">revenue. Let's find it.</em></h1>
+    <p style="font-size:13px;color:var(--slate);line-height:1.7">4 quick steps &middot; AI-scored across 6 categories &middot; Submarket-specific &middot; Free &middot; No card required</p>
+  </div>
+  <div class="card">
+    <div id="progress-wrap">
+      <div class="prog-dots" id="prog-dots"></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="screen active" id="s1">
+      <div class="eyebrow">Step 01 of 04</div>
+      <h2 class="step-h">Tell us about your <em>property.</em></h2>
+      <p class="step-sub">The more specific you are about your location, the more precise your audit.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Platform <span class="req">*</span></label>
+          <div class="sel-wrap"><select id="f-platform"><option value="">Select platform...</option><option>Airbnb</option><option>Vrbo</option><option>Booking.com</option><option>Airbnb + Vrbo</option><option>All platforms</option><option>Direct booking only</option></select></div>
+        </div>
+        <div class="field">
+          <label>City / Metro Area <span class="req">*</span></label>
+          <input id="f-city" placeholder="e.g. Maui, Nashville, Scottsdale, Miami">
+          <span class="hint">The broader market your listing is in</span>
+        </div>
+        <div class="field">
+          <label>Neighborhood / Submarket <span class="req">*</span></label>
+          <input id="f-neighborhood" placeholder="e.g. Kaanapali, East Nashville, Old Town Scottsdale" oninput="showSubNote()">
+          <span class="hint">Be specific — this is how we benchmark your real comps</span>
+          <div class="sub-note" id="sub-note" style="display:none"><p>&#10003; <strong>Got it.</strong> We'll benchmark against real comps in <strong id="sub-name"></strong> — not just the broader market.</p></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>Property Type <span class="req">*</span></label>
+            <div class="sel-wrap"><select id="f-type"><option value="">Select...</option><option>Entire home</option><option>Condo / apartment</option><option>Cabin / cottage</option><option>Beach house</option><option>Townhouse</option><option>Unique / unusual</option><option>Room in home</option></select></div>
+          </div>
+          <div class="field">
+            <label>Bedrooms <span class="req">*</span></label>
+            <div class="sel-wrap"><select id="f-beds"><option value="">Select...</option><option>Studio</option><option>1 bedroom</option><option>2 bedrooms</option><option>3 bedrooms</option><option>4 bedrooms</option><option>5+ bedrooms</option></select></div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>Max Guests (sleeps)</label>
+            <input type="number" id="f-sleeps" placeholder="e.g. 6">
+          </div>
+          <div class="field">
+            <label>Avg Nightly Rate ($) <span class="req">*</span></label>
+            <input type="number" id="f-rate" placeholder="e.g. 195">
+          </div>
+        </div>
+        <div class="field">
+          <label>Weekend / Peak Rate ($)</label>
+          <input type="number" id="f-weekend" placeholder="e.g. 240 — leave blank if same as base">
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn btn-navy" onclick="go12()">Continue &#8594;</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="screen" id="s2">
+      <div class="eyebrow">Step 02 of 04</div>
+      <h2 class="step-h">Describe your <em>listing.</em></h2>
+      <p class="step-sub">This is where we find the gaps most owners don't see — be honest.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Your Listing Title <span class="req">*</span></label>
+          <input id="f-title" placeholder="e.g. Stunning Oceanfront Studio — Steps to Kaanapali Beach">
+          <span class="hint">Copy and paste exactly from your platform</span>
+        </div>
+        <div class="field">
+          <label>Describe your photos <span class="req">*</span></label>
+          <textarea id="f-photos" rows="3" placeholder="e.g. Professional photos, cover is living room with ocean view. All bedrooms, kitchen, bathroom and lanai covered. No drone or exterior shots."></textarea>
+          <span class="hint">Cover photo, rooms shown, pro or DIY, lighting quality</span>
+        </div>
+        <div class="field">
+          <label>Key amenities you offer <span class="req">*</span></label>
+          <textarea id="f-amenities" rows="3" placeholder="e.g. Private pool, hot tub, 500Mbps WiFi, full kitchen, washer/dryer, EV charger, 2 parking spots, beach chairs"></textarea>
+        </div>
+        <div class="field">
+          <label>Amenities you don't have (but wonder about)</label>
+          <textarea id="f-missing" rows="2" placeholder="e.g. No pool, no EV charger, no dedicated workspace"></textarea>
+          <span class="hint">Helps us find your highest-ROI gaps</span>
+        </div>
+        <div class="field">
+          <label>How would you describe your listing description?</label>
+          <textarea id="f-desc" rows="2" placeholder="e.g. ~400 words, written by me, bullet points for amenities. Hasn't been updated in 18 months."></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="show('s1');setStep(1)">&#8592; Back</button>
+        <button class="btn btn-navy" onclick="go23()">Continue &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="screen" id="s3">
+      <div class="eyebrow">Step 03 of 04</div>
+      <h2 class="step-h">How's it <em>performing?</em></h2>
+      <p class="step-sub">Honest numbers help us find where revenue is actually leaking.</p>
+      <div class="fields">
+        <div class="grid2">
+          <div class="field">
+            <label>Occupancy Rate <span class="req">*</span></label>
+            <div class="sel-wrap"><select id="f-occ"><option value="">Select...</option><option value="20">Under 30%</option><option value="40">30-50%</option><option value="60">50-70%</option><option value="75">70-80%</option><option value="85">80-90%</option><option value="92">Over 90%</option></select></div>
+          </div>
+          <div class="field">
+            <label>Review Score <span class="req">*</span></label>
+            <div class="sel-wrap"><select id="f-score"><option value="">Select...</option><option value="3.5">Below 4.0</option><option value="4.2">4.0-4.4</option><option value="4.6">4.5-4.7</option><option value="4.8">4.8-4.9</option><option value="5.0">5.0 perfect</option><option value="0">No reviews yet</option></select></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Number of Reviews <span class="req">*</span></label>
+          <div class="sel-wrap"><select id="f-reviews"><option value="">Select...</option><option value="0">None yet</option><option value="5">1-10</option><option value="20">10-30</option><option value="50">30-75</option><option value="100">75-150</option><option value="200">150+</option></select></div>
+        </div>
+        <div class="field">
+          <label>Dynamic Pricing Tool</label>
+          <div class="sel-wrap"><select id="f-pricing"><option>No — I set prices manually</option><option>Pricelabs</option><option>Wheelhouse</option><option>Beyond</option><option>Airbnb Smart Pricing only</option><option>Other tool</option></select></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>Minimum Nights</label>
+            <div class="sel-wrap"><select id="f-minnights"><option value="1">1 night</option><option value="2">2 nights</option><option value="3">3 nights</option><option value="4-5">4-5 nights</option><option value="7">7 nights</option><option value="14+">14+ nights</option></select></div>
+          </div>
+          <div class="field">
+            <label>Listing Age</label>
+            <div class="sel-wrap"><select id="f-age"><option value="new">Under 3 months</option><option value="recent">3-12 months</option><option value="established" selected>1-3 years</option><option value="veteran">3+ years</option></select></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Search Ranking</label>
+          <div class="sel-wrap"><select id="f-rank"><option value="unknown">Not sure / haven't checked</option><option value="yes">Yes — usually page 1</option><option value="varies">Varies a lot</option><option value="no">No — usually buried</option></select></div>
+          <span class="hint">e.g. "2BR condo Kaanapali" or "cabin near Smoky Mountains"</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="show('s2');setStep(2)">&#8592; Back</button>
+        <button class="btn btn-navy" onclick="go34()">Continue &#8594;</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="screen" id="s4">
+      <div class="eyebrow">Step 04 of 04</div>
+      <h2 class="step-h">Last few <em>things.</em></h2>
+      <p class="step-sub">The more context you give, the sharper the audit.</p>
+      <div class="fields">
+        <div class="field">
+          <label>Biggest challenge or goal right now</label>
+          <textarea id="f-goals" rows="4" placeholder="e.g. I want to increase bookings in shoulder season, stop losing weekday nights to competitors, and figure out if my pricing is right for my neighborhood."></textarea>
+          <span class="hint">Be specific — this shapes your recommendations</span>
+        </div>
+        <div class="field">
+          <label>How many units do you manage?</label>
+          <div class="sel-wrap"><select id="f-units"><option value="1">Just this one listing</option><option value="2-3">2-3 units</option><option value="4-10">4-10 units</option><option value="10+">10+ units (PM company)</option></select></div>
+        </div>
+        <div class="field">
+          <label>Anything else we should know?</label>
+          <textarea id="f-extra" rows="2" placeholder="e.g. Lowered my price by $20 and didn't see more bookings. Considering adding a hot tub."></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="show('s3');setStep(3)">&#8592; Back</button>
+        <button class="btn btn-dune" onclick="show('gate')">Generate My Free Audit &#8594;</button>
+      </div>
+    </div>
+
+    <!-- EMAIL GATE -->
+    <div class="screen" id="gate" style="text-align:center">
+      <div id="gate-error" class="error-box" style="display:none;text-align:left"></div>
+      <div class="gate-icon">&#10022;</div>
+      <div class="eyebrow" style="justify-content:center">Almost There</div>
+      <h2 class="gate-h">Your report is <em>ready.</em></h2>
+      <p class="gate-sub">Enter your name and email to unlock your full scored audit. We'll send you a copy too.</p>
+      <div style="text-align:left;display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+        <div class="field"><label>First Name <span class="req">*</span></label><input id="f-name" placeholder="Your first name"></div>
+        <div class="field"><label>Email Address <span class="req">*</span></label><input type="email" id="f-email" placeholder="you@email.com"></div>
+      </div>
+      <button class="btn btn-dune btn-full" onclick="submitGate()">Unlock My Free Audit Report &#8594;</button>
+      <p class="gate-note">No spam. Mahalo for trusting us with your email.</p>
+    </div>
+
+    <!-- LOADING -->
+    <div class="screen" id="loading">
+      <div class="load-wrap">
+        <div class="spinner"></div>
+        <div class="eyebrow" style="justify-content:center">ListingIQ</div>
+        <h2 id="load-name" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--navy);margin-bottom:12px">Building your report...</h2>
+        <p class="load-msg" id="load-msg">Analyzing your title and keywords...</p>
+      </div>
+    </div>
+
+    <!-- REPORT -->
+    <div class="screen" id="report"><div id="report-content"></div></div>
+  </div>
+  <div class="page-footer"><a href="https://ksandr.co">ksandr.co</a> &middot; <a href="mailto:hello@ksandr.co">hello@ksandr.co</a> &middot; Honolulu, Hawaii</div>
+</div>
+
+<script>
+const CALENDLY='https://calendly.com/ksandr/strategy-session';
+const STEP_LABELS=['Property','Listing','Performance','Details'];
+
+function setStep(n){
+  const dots=document.getElementById('prog-dots');
+  dots.innerHTML=STEP_LABELS.map((s,i)=>{const sn=i+1,cls=sn<n?'done':sn===n?'active':'idle';return'<div class="prog-item"><div class="prog-circle '+cls+'">'+(sn<n?'&#10003;':sn)+'</div><div class="prog-label '+cls+'">'+s+'</div></div>';}).join('');
+  document.getElementById('prog-fill').style.width=((n-1)/3*100)+'%';
+  document.getElementById('progress-wrap').style.display='block';
+  document.getElementById('intro').style.display=n===1?'block':'none';
+}
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  const isForm=['s1','s2','s3','s4'].includes(id);
+  document.getElementById('progress-wrap').style.display=isForm?'block':'none';
+  document.getElementById('intro').style.display=id==='s1'?'block':'none';
+}
+
+function showSubNote(){
+  const v=document.getElementById('f-neighborhood').value.trim();
+  const note=document.getElementById('sub-note');
+  if(v.length>2){document.getElementById('sub-name').textContent=v;note.style.display='block';}
+  else note.style.display='none';
+}
+
+function val(id){return(document.getElementById(id)||{}).value||'';}
+
+function go12(){
+  if(!val('f-platform'))return alert('Please select a platform.');
+  if(!val('f-city').trim())return alert('Please enter your city / metro area.');
+  if(!val('f-neighborhood').trim())return alert('Please enter your neighborhood — this is key to accurate comps.');
+  if(!val('f-type'))return alert('Please select a property type.');
+  if(!val('f-beds'))return alert('Please select bedroom count.');
+  if(!val('f-rate').trim())return alert('Please enter your average nightly rate.');
+  show('s2');setStep(2);
+}
+
+function go23(){
+  if(!val('f-title').trim())return alert('Please enter your listing title.');
+  if(!val('f-photos').trim())return alert('Please describe your photos.');
+  if(!val('f-amenities').trim())return alert('Please list your key amenities.');
+  show('s3');setStep(3);
+}
+
+function go34(){
+  if(!val('f-occ'))return alert('Please select your occupancy rate.');
+  if(!val('f-score'))return alert('Please select your review score.');
+  if(!val('f-reviews'))return alert('Please select your review count.');
+  show('s4');setStep(4);
+}
+
+function submitGate(){
+  const name=val('f-name').trim(),email=val('f-email').trim();
+  if(!name)return alert('Please enter your first name.');
+  if(!email.includes('@')||!email.includes('.'))return alert('Please enter a valid email address.');
+  startAudit(name);
+}
+
+const LOAD_MSGS=['Analyzing your title and keywords...','Reviewing photo and visual strategy...','Benchmarking against your submarket comps...','Evaluating your description and copy...','Checking amenity gaps for your neighborhood...','Scoring pricing vs local demand patterns...','Reviewing trust signals and reviews...','Calculating your revenue opportunity...'];
+let loadInterval;
+
+function startAudit(userName){
+  show('loading');
+  let i=0;
+  const msg=document.getElementById('load-msg');
+  document.getElementById('load-name').textContent='Building your report, '+userName+'...';
+  msg.textContent=LOAD_MSGS[0];
+  loadInterval=setInterval(()=>{i=(i+1)%LOAD_MSGS.length;msg.textContent=LOAD_MSGS[i];},1700);
+
+  const f={
+    platform:val('f-platform'),city:val('f-city'),neighborhood:val('f-neighborhood'),
+    propertyType:val('f-type'),bedrooms:val('f-beds'),sleeps:val('f-sleeps')||'not specified',
+    nightlyRate:val('f-rate'),weekendRate:val('f-weekend')||'same as base',
+    title:val('f-title'),photoDesc:val('f-photos'),amenities:val('f-amenities'),
+    missingAmen:val('f-missing')||'not specified',descStyle:val('f-desc')||'not described',
+    occupancy:val('f-occ'),reviewScore:val('f-score'),reviewCount:val('f-reviews'),
+    pricingTool:val('f-pricing'),minNights:val('f-minnights'),listingAge:val('f-age'),
+    ranking:val('f-rank'),goals:val('f-goals')||'not specified',
+    units:val('f-units'),extra:val('f-extra')||'nothing additional'
+  };
+
+  const prompt=`You are ListingIQ, an expert vacation rental consultant with 6+ years of OTA strategy experience. Analyze this listing and produce a precise, submarket-aware audit. Reference the SPECIFIC NEIGHBORHOOD (${f.neighborhood}) by name throughout your findings — not just the city. Reference real submarket dynamics, guest profiles, and comp behavior specific to ${f.neighborhood}.
+
+LISTING DATA:
+Platform: ${f.platform}
+City: ${f.city}
+Neighborhood/Submarket: ${f.neighborhood}
+Property Type: ${f.propertyType}
+Bedrooms: ${f.bedrooms} | Sleeps: ${f.sleeps}
+Base Rate: $${f.nightlyRate} | Weekend Rate: ${f.weekendRate}
+Title: "${f.title}"
+Photos: "${f.photoDesc}"
+Amenities: "${f.amenities}"
+Missing Amenities: "${f.missingAmen}"
+Description: "${f.descStyle}"
+Occupancy: ${f.occupancy}% | Review Score: ${f.reviewScore}/5 | Reviews: ${f.reviewCount}
+Pricing Tool: ${f.pricingTool} | Min Nights: ${f.minNights} | Age: ${f.listingAge}
+Search Ranking: ${f.ranking} | Units: ${f.units}
+Goal: "${f.goals}"
+Extra: "${f.extra}"
+
+Score honestly. Make quick wins actionable this week. Revenue impact must be realistic.
+Return ONLY valid JSON, no markdown, no backticks:
+{"overallScore":<0-100>,"grade":<"A"|"B"|"C"|"D">,"headline":<8-12 word headline>,"summary":<2-3 sentences referencing ${f.neighborhood}>,"revenueImpact":<e.g. "$200-$380/mo">,"categories":[{"name":"Title & Keywords","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<1-2 sentences specific to their title and ${f.neighborhood}>,"action":<1 concrete action>},{"name":"Photos & Visual Appeal","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<specific>,"action":<specific>},{"name":"Description & Copy","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<specific>,"action":<specific>},{"name":"Pricing Strategy","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<reference ${f.neighborhood} pricing dynamics>,"action":<with numbers>},{"name":"Amenities & Positioning","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<high-demand amenities in ${f.neighborhood}>,"action":<prioritized by ROI>},{"name":"Reviews & Trust Signals","score":<0-100>,"status":<"strong"|"good"|"needs work"|"critical">,"finding":<honest assessment>,"action":<specific>}],"quickWins":[<week 1>,<week 2>,<week 3>],"priorityAction":<highest-leverage action for ${f.neighborhood}, 2 sentences>,"proTeaser":<what Pro Report reveals that free audit cannot, 1-2 sentences>}`;
+
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    clearInterval(loadInterval);
+    const raw=data.content[0].text.trim().replace(/```json|```/g,'').trim();
+    const report=JSON.parse(raw);
+    renderReport(report,userName,f.neighborhood||f.city);
+  })
+  .catch(()=>{
+    clearInterval(loadInterval);
+    show('gate');
+    const e=document.getElementById('gate-error');
+    e.textContent='Something went wrong generating your report. Please try again.';
+    e.style.display='block';
+  });
+}
+
+function renderReport(r,name,neighborhood){
+  const gradeColor={A:'#16a34a',B:'var(--dune)',C:'var(--dune)',D:'#dc2626'}[r.grade]||'var(--dune)';
+  const sColor={strong:'#16a34a',good:'var(--navy)','needs work':'#d97706',critical:'#dc2626'};
+  const bColor={strong:'#16a34a',good:'var(--navy)','needs work':'var(--dune)',critical:'#dc2626'};
+
+  const cats=r.categories.map((c,i)=>`
+    <div class="cat-card">
+      <div class="cat-top">
+        <div class="cat-left">
+          <span class="cat-name">${c.name}</span>
+          <span class="cat-badge" style="color:${sColor[c.status]||'var(--slate)'};border-color:${sColor[c.status]||'var(--slate)'}44">${c.status}</span>
+        </div>
+        <span class="cat-score">${c.score}</span>
+      </div>
+      <div class="cat-bar-track"><div class="cat-bar-fill" id="bar${i}" style="background:${bColor[c.status]||'var(--navy)'}"></div></div>
+      <p class="cat-finding">${c.finding}</p>
+      <p class="cat-action">&#8594; ${c.action}</p>
+    </div>`).join('');
+
+  const qwins=r.quickWins.map((w,i)=>`<div class="qw-item"><span class="qw-num">${i+1}</span><span class="qw-text">${w}</span></div>`).join('');
+
+  document.getElementById('report-content').innerHTML=`
+    <div class="report-head">
+      <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dune);margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:12px;height:.5px;background:var(--dune)"></span>ListingIQ Free Audit &middot; ${neighborhood}</div>
+      <div class="report-top">
+        <div class="report-title">${r.headline}</div>
+        <div class="score-wrap">
+          <div class="score-big">${r.overallScore}</div>
+          <div class="score-lbl">Overall Score</div>
+          <div class="score-grade" style="color:${gradeColor}">Grade ${r.grade}</div>
+        </div>
+      </div>
+      <p class="report-summary">${r.summary}</p>
+      <div class="rev-pill">
+        <div class="rev-label">Estimated Revenue Opportunity</div>
+        <div class="rev-val">${r.revenueImpact}</div>
+        <div class="rev-sub">if you implement these recommendations</div>
+      </div>
+    </div>
+    <div class="cats-label">6-Category Breakdown</div>
+    ${cats}
+    <div class="qw-box"><div class="qw-label">Quick Wins — Do These First</div>${qwins}</div>
+    <div class="priority-box"><div class="priority-label">Priority Action — This Week</div><p class="priority-text">"${r.priorityAction}"</p></div>
+    <div class="pro-box">
+      <div class="pro-label">Want to go deeper?</div>
+      <p class="pro-text"><strong>The Pro Report ($99)</strong> goes further — ${r.proTeaser}</p>
+      <div class="btn-row">
+        <button class="btn btn-dune" onclick="window.open('https://ksandr.co/contact','_blank')">Get Pro Report — $99</button>
+        <button class="btn btn-ghost" onclick="window.open('${CALENDLY}','_blank')">Book Strategy Session — $250</button>
+      </div>
+    </div>
+    <div class="report-cta">
+      <p>Ready to turn these insights into action? Book a 60-min Strategy Session — specific to ${neighborhood}.</p>
+      <button class="btn btn-navy" onclick="window.open('${CALENDLY}','_blank')">Book Strategy Session — $250</button>
+      <p style="font-size:11px;color:var(--slate);margin-top:12px">Mahalo, ${name}. Questions? <a href="mailto:hello@ksandr.co" style="color:var(--slate)">hello@ksandr.co</a></p>
+    </div>`;
+
+  show('report');
+  r.categories.forEach((_,i)=>setTimeout(()=>{const b=document.getElementById('bar'+i);if(b)b.style.width=r.categories[i].score+'%';},400+i*120));
+}
+
+setStep(1);
+</script>
+</body>
+</html>
