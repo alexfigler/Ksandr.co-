@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ksandr — Smarter Listings. Stronger Revenue.</title>
+<meta name="description" content="AI-powered vacation rental consulting for independent owners. Free listing audit, strategy sessions, and full advisory services. Built in Hawaii, built for anywhere.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #3d4660;
+  --slate: #6f7789;
+  --mist: #ccd5df;
+  --linen: #e7dfd9;
+  --dune: #e3b59b;
+  --white: #ffffff;
+  --ink: #1e2130;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--navy); line-height: 1.7; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 56px; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: transparent;
+  transition: background 0.4s ease, box-shadow 0.4s ease, border-bottom 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(231,223,217,0.97);
+  border-bottom: 0.5px solid var(--mist);
+  box-shadow: 0 1px 28px rgba(30,33,48,0.07);
+  backdrop-filter: blur(14px);
+}
+.nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.k-box { border: 1.5px solid rgba(231,223,217,0.8); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+nav.scrolled .k-box { border-color: var(--navy); }
+.k-letter { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--linen); line-height: 1; transition: color 0.3s; }
+nav.scrolled .k-letter { color: var(--navy); }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; letter-spacing: 0.12em; color: var(--linen); transition: color 0.3s; }
+nav.scrolled .nav-brand { color: var(--navy); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 12px; letter-spacing: 0.05em; color: rgba(231,223,217,0.75); text-decoration: none; transition: color 0.2s, opacity 0.2s; }
+nav.scrolled .nav-links a { color: var(--slate); }
+.nav-links a:hover { color: var(--linen); opacity: 1; }
+nav.scrolled .nav-links a:hover { color: var(--navy); }
+.nav-cta { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); background: var(--dune); border: 1px solid var(--dune); padding: 9px 22px; text-decoration: none; transition: background 0.2s; }
+.nav-cta:hover { background: #d4a385; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--linen); transition: 0.3s; }
+nav.scrolled .hamburger span { background: var(--navy); }
+.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: var(--linen); border-bottom: 0.5px solid var(--mist); padding: 24px 32px; z-index: 99; flex-direction: column; gap: 20px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.8; }
+.mobile-menu .nav-cta { align-self: flex-start; color: var(--ink); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 56px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 80% 60%, rgba(227,181,155,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 90%, rgba(204,213,223,0.04) 0%, transparent 50%);
+}
+.hero-bg-k {
+  position: absolute; right: -80px; bottom: -160px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 700px; font-weight: 600; line-height: 1;
+  color: rgba(255,255,255,0.015);
+  pointer-events: none; user-select: none;
+}
+.hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+.hero-left {}
+.eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dune); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 20px; height: 0.5px; background: var(--dune); flex-shrink: 0; }
+.hero-left h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6vw, 88px); font-weight: 400; color: var(--linen); line-height: 1.04; margin-bottom: 28px; }
+.hero-left h1 em { font-style: italic; color: var(--dune); }
+.hero-left p { font-size: 15px; color: rgba(204,213,223,0.75); line-height: 1.85; max-width: 440px; margin-bottom: 40px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-dune { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--dune); padding: 14px 30px; text-decoration: none; border: 1px solid var(--dune); transition: background 0.2s, transform 0.15s; }
+.btn-dune:hover { background: #d4a385; transform: translateY(-1px); }
+.btn-outline { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(231,223,217,0.75); background: transparent; padding: 14px 30px; text-decoration: none; border: 1px solid rgba(231,223,217,0.25); transition: border-color 0.2s, color 0.2s; }
+.btn-outline:hover { border-color: rgba(231,223,217,0.55); color: var(--linen); }
+
+/* Report card (hero right) */
+.report-card { background: var(--white); padding: 28px; box-shadow: 0 32px 80px rgba(30,33,48,0.35); position: relative; }
+.report-card::before { content: 'Sample Report'; position: absolute; top: -10px; left: 20px; background: var(--dune); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); padding: 4px 10px; }
+.rc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 0.5px solid var(--mist); }
+.rc-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--navy); line-height: 1.25; }
+.rc-sub { font-size: 10px; color: var(--slate); margin-top: 3px; letter-spacing: 0.04em; }
+.rc-score { text-align: right; }
+.rc-score-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--navy); line-height: 1; }
+.rc-score-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); }
+.rc-bars { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.rc-row { display: flex; align-items: center; gap: 9px; }
+.rc-label { font-size: 10px; color: var(--slate); min-width: 100px; }
+.rc-track { flex: 1; height: 3px; background: var(--mist); }
+.rc-fill { height: 100%; }
+.rc-fill.h { background: var(--navy); }
+.rc-fill.m { background: var(--dune); }
+.rc-fill.l { background: var(--slate); }
+.rc-num { font-size: 11px; font-weight: 500; color: var(--navy); min-width: 26px; text-align: right; }
+.rc-action { background: var(--linen); padding: 13px 15px; }
+.rc-action-label { font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dune); margin-bottom: 4px; }
+.rc-action-text { font-size: 11px; color: var(--navy); line-height: 1.5; }
+
+/* ── TICKER ── */
+.ticker { background: var(--ink); padding: 14px 0; overflow: hidden; border-top: 0.5px solid rgba(255,255,255,0.04); border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+.ticker-track { display: flex; width: max-content; animation: ticker 28s linear infinite; }
+.ticker-item { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(204,213,223,0.45); white-space: nowrap; padding: 0 28px; }
+.ticker-item .dot { color: var(--dune); margin: 0 4px; }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ── STATS ── */
+.stats-strip { background: var(--white); border-bottom: 0.5px solid var(--mist); }
+.stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat { padding: 36px 32px; border-right: 0.5px solid var(--mist); }
+.stat:last-child { border-right: none; }
+.stat-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); margin-bottom: 8px; }
+.stat-val { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+.stat-sub { font-size: 11px; color: var(--slate); line-height: 1.4; }
+
+/* ── SERVICES ── */
+.services-section { padding: 104px 56px; }
+.services-inner { max-width: 1200px; margin: 0 auto; }
+.sec-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.sec-label::before { content: ''; width: 14px; height: 0.5px; background: var(--dune); }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 3.5vw, 52px); font-weight: 400; color: var(--navy); line-height: 1.1; margin-bottom: 56px; }
+.sec-title em { font-style: italic; color: var(--dune); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--mist); border: 0.5px solid var(--mist); margin-bottom: 20px; }
+.svc-card { background: var(--white); padding: 28px 24px; transition: background 0.2s; text-decoration: none; display: block; }
+.svc-card:hover { background: #fafaf9; }
+.svc-card.featured { background: var(--navy); }
+.svc-card.featured:hover { background: #424c6b; }
+.svc-tag { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); border: 0.5px solid var(--mist); padding: 3px 8px; display: inline-block; margin-bottom: 14px; }
+.svc-card.featured .svc-tag { border-color: rgba(227,181,155,0.3); color: var(--dune); }
+.svc-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--navy); margin-bottom: 5px; line-height: 1.2; }
+.svc-card.featured .svc-name { color: var(--linen); }
+.svc-price { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; color: var(--navy); line-height: 1; margin-bottom: 14px; }
+.svc-card.featured .svc-price { color: var(--linen); }
+.svc-desc { font-size: 12px; color: var(--slate); line-height: 1.65; }
+.svc-card.featured .svc-desc { color: rgba(204,213,223,0.65); }
+.services-link { text-align: right; }
+.services-link a { font-size: 11px; letter-spacing: 0.08em; color: var(--slate); text-decoration: none; border-bottom: 0.5px solid var(--mist); padding-bottom: 1px; transition: color 0.2s; }
+.services-link a:hover { color: var(--navy); }
+
+/* ── LISTINGIQ FEATURE ── */
+.liq-section { background: var(--navy); padding: 96px 56px; position: relative; overflow: hidden; }
+.liq-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 85% 50%, rgba(227,181,155,0.07) 0%, transparent 60%); }
+.liq-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+.liq-left .sec-label { color: var(--dune); }
+.liq-left .sec-label::before { background: var(--dune); }
+.liq-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 58px); font-weight: 400; color: var(--linen); line-height: 1.08; margin-bottom: 24px; }
+.liq-left h2 em { font-style: italic; color: var(--dune); }
+.liq-left p { font-size: 14px; color: rgba(204,213,223,0.7); line-height: 1.85; margin-bottom: 36px; }
+.liq-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(204,213,223,0.06); border: 0.5px solid rgba(204,213,223,0.08); }
+.liq-cat { padding: 14px 16px; }
+.liq-cat-num { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--dune); opacity: 0.4; line-height: 1; margin-bottom: 3px; }
+.liq-cat-name { font-size: 12px; color: rgba(204,213,223,0.65); }
+
+/* ── ABOUT ── */
+.about-section { padding: 104px 56px; background: var(--linen); }
+.about-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 58px); font-weight: 400; color: var(--navy); line-height: 1.1; margin-bottom: 28px; }
+.about-left h2 em { font-style: italic; color: var(--dune); }
+.about-left p { font-size: 14px; color: var(--slate); line-height: 1.88; margin-bottom: 18px; }
+.about-left a { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--mist); padding-bottom: 3px; margin-top: 10px; transition: border-color 0.2s; }
+.about-left a:hover { border-color: var(--dune); }
+.about-right { display: flex; flex-direction: column; gap: 2px; }
+.about-card { background: var(--white); border: 0.5px solid var(--mist); padding: 22px 24px; }
+.about-card-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); margin-bottom: 6px; }
+.about-card-val { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--navy); margin-bottom: 2px; }
+.about-card-sub { font-size: 12px; color: var(--slate); }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section { background: var(--ink); padding: 96px 56px; }
+.testimonials-inner { max-width: 1200px; margin: 0 auto; }
+.testi-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 48px; display: flex; align-items: center; gap: 10px; }
+.testi-label::before { content: ''; width: 14px; height: 0.5px; background: var(--dune); }
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(204,213,223,0.05); }
+.testi { padding: 28px 24px; border-right: 0.5px solid rgba(204,213,223,0.06); }
+.testi:last-child { border-right: none; }
+.testi-quote { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; font-style: italic; color: rgba(231,223,217,0.8); line-height: 1.62; margin-bottom: 18px; }
+.testi-attr { font-size: 11px; color: rgba(111,119,137,0.55); }
+.testi-attr strong { color: rgba(204,213,223,0.4); font-weight: 500; display: block; margin-bottom: 1px; }
+
+/* ── CTA ── */
+.cta-section { padding: 112px 56px; }
+.cta-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 64px; flex-wrap: wrap; }
+.cta-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4.5vw, 64px); font-weight: 400; color: var(--navy); line-height: 1.06; }
+.cta-left h2 em { font-style: italic; color: var(--dune); }
+.cta-left p { font-size: 14px; color: var(--slate); line-height: 1.8; max-width: 380px; margin-top: 16px; }
+.cta-right { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.cta-right .btn-navy { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--linen); background: var(--navy); padding: 14px 30px; text-decoration: none; border: 1px solid var(--navy); transition: background 0.2s; }
+.cta-right .btn-navy:hover { background: var(--ink); }
+.cta-note { font-size: 11px; color: var(--slate); }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 56px 56px 40px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; padding-bottom: 40px; border-bottom: 0.5px solid rgba(204,213,223,0.07); }
+.footer-col-logo .f-logo { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; letter-spacing: 0.12em; color: var(--linen); }
+.footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 300; font-style: italic; color: rgba(204,213,223,0.35); line-height: 1.5; }
+.footer-col h4 { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(204,213,223,0.3); margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a { font-size: 12px; color: rgba(111,119,137,0.55); text-decoration: none; transition: color 0.2s; }
+.footer-col ul a:hover { color: var(--slate); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: 11px; color: rgba(111,119,137,0.35); }
+.footer-email a { font-size: 11px; color: rgba(111,119,137,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-email a:hover { color: var(--slate); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-inner, .liq-inner, .about-inner { gap: 48px; }
+}
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 110px 24px 64px; min-height: unset; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .services-section { padding: 72px 24px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(3) { border-right: 0.5px solid var(--mist); border-top: 0.5px solid var(--mist); }
+  .stat:nth-child(4) { border-top: 0.5px solid var(--mist); border-right: none; }
+  .liq-section { padding: 64px 24px; }
+  .liq-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-section { padding: 72px 24px; }
+  .about-inner { grid-template-columns: 1fr; gap: 36px; }
+  .testimonials-section { padding: 64px 24px; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .testi { border-right: none; border-bottom: 0.5px solid rgba(204,213,223,0.06); }
+  .cta-section { padding: 72px 24px; }
+  .cta-inner { flex-direction: column; align-items: flex-start; gap: 36px; }
+  footer { padding: 48px 24px 32px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 500px) {
+  .stats-inner { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 0.5px solid var(--mist); }
+  .footer-top { grid-template-columns: 1fr; }
+  .liq-cats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="k-box"><span class="k-letter">K</span></div>
+    <span class="nav-brand">KSANDR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="listingiq.html" class="nav-cta">Free Audit</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="services.html">Services</a>
+  <a href="listingiq.html">ListingIQ</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="listingiq.html" class="nav-cta">Free Audit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-k">K</div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="eyebrow">AI-Powered VR Consulting</div>
+      <h1>Smarter listings.<br><em>Stronger revenue.</em></h1>
+      <p>Independent vacation rental owners deserve the same quality of intelligence that big operators rely on every day. Ksandr delivers it — starting free, with no guesswork.</p>
+      <div class="hero-btns">
+        <a href="listingiq.html" class="btn-dune">Run Free Audit</a>
+        <a href="contact.html" class="btn-outline">Book a Strategy Call</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="report-card">
+        <div class="rc-header">
+          <div>
+            <div class="rc-title">Beachfront Suite — Kaanapali</div>
+            <div class="rc-sub">Airbnb · Maui, Hawaii</div>
+          </div>
+          <div class="rc-score">
+            <div class="rc-score-num">74</div>
+            <div class="rc-score-label">Overall Score</div>
+          </div>
+        </div>
+        <div class="rc-bars">
+          <div class="rc-row"><span class="rc-label">Title & Keywords</span><div class="rc-track"><div class="rc-fill h" style="width:88%"></div></div><span class="rc-num">88</span></div>
+          <div class="rc-row"><span class="rc-label">Photos & Visual</span><div class="rc-track"><div class="rc-fill h" style="width:82%"></div></div><span class="rc-num">82</span></div>
+          <div class="rc-row"><span class="rc-label">Pricing Strategy</span><div class="rc-track"><div class="rc-fill m" style="width:61%"></div></div><span class="rc-num">61</span></div>
+          <div class="rc-row"><span class="rc-label">Description</span><div class="rc-track"><div class="rc-fill m" style="width:70%"></div></div><span class="rc-num">70</span></div>
+          <div class="rc-row"><span class="rc-label">Amenities</span><div class="rc-track"><div class="rc-fill l" style="width:55%"></div></div><span class="rc-num">55</span></div>
+          <div class="rc-row"><span class="rc-label">Reviews & Trust</span><div class="rc-track"><div class="rc-fill h" style="width:91%"></div></div><span class="rc-num">91</span></div>
+        </div>
+        <div class="rc-action">
+          <div class="rc-action-label">Priority Action</div>
+          <div class="rc-action-text">Add high-demand amenities (EV charging, dedicated workspace) to close the gap on comparable listings charging 18% more per night.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Smarter Listings <span class="dot">·</span></span>
+    <span class="ticker-item">Stronger Revenue <span class="dot">·</span></span>
+    <span class="ticker-item">No Guesswork <span class="dot">·</span></span>
+    <span class="ticker-item">AI-Powered <span class="dot">·</span></span>
+    <span class="ticker-item">Locally Rooted <span class="dot">·</span></span>
+    <span class="ticker-item">Built for Owners <span class="dot">·</span></span>
+    <span class="ticker-item">Expert Intelligence <span class="dot">·</span></span>
+    <span class="ticker-item">No Agency Price Tag <span class="dot">·</span></span>
+    <span class="ticker-item">Smarter Listings <span class="dot">·</span></span>
+    <span class="ticker-item">Stronger Revenue <span class="dot">·</span></span>
+    <span class="ticker-item">No Guesswork <span class="dot">·</span></span>
+    <span class="ticker-item">AI-Powered <span class="dot">·</span></span>
+    <span class="ticker-item">Locally Rooted <span class="dot">·</span></span>
+    <span class="ticker-item">Built for Owners <span class="dot">·</span></span>
+    <span class="ticker-item">Expert Intelligence <span class="dot">·</span></span>
+    <span class="ticker-item">No Agency Price Tag <span class="dot">·</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-label">Industry Experience</div>
+      <div class="stat-val">6+</div>
+      <div class="stat-sub">Years in VR, OTA strategy & PM</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Audit Categories</div>
+      <div class="stat-val">6</div>
+      <div class="stat-sub">Scored dimensions per listing</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Time to Insights</div>
+      <div class="stat-val">&lt;5</div>
+      <div class="stat-sub">Minutes to your scored report</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">To Start</div>
+      <div class="stat-val">$0</div>
+      <div class="stat-sub">Free audit — no card required</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="services-inner">
+    <div class="sec-label">Services</div>
+    <h2 class="sec-title">Two tracks.<br><em>One mission.</em></h2>
+    <div class="services-grid">
+      <a href="listingiq.html" class="svc-card">
+        <span class="svc-tag">Free · Lead Gen</span>
+        <div class="svc-name">ListingIQ Free Audit</div>
+        <div class="svc-price">$0</div>
+        <div class="svc-desc">Instant AI-powered audit across 6 categories. Your score, your quick wins, your priority action. No card required.</div>
+      </a>
+      <a href="services.html" class="svc-card featured">
+        <span class="svc-tag">Most Popular</span>
+        <div class="svc-name">Strategy Session</div>
+        <div class="svc-price">$250</div>
+        <div class="svc-desc">60 minutes. 1:1. A custom action plan built around your listing, market, and goals. Book via Calendly.</div>
+      </a>
+      <a href="services.html" class="svc-card">
+        <span class="svc-tag">Recurring</span>
+        <div class="svc-name">Monthly Retainer</div>
+        <div class="svc-price">$750–1,500/mo</div>
+        <div class="svc-desc">Ongoing advisory for active owners and PMs who want to treat their portfolio like the business it is.</div>
+      </a>
+      <a href="services.html" class="svc-card">
+        <span class="svc-tag">Entry</span>
+        <div class="svc-name">Pro Report</div>
+        <div class="svc-price">$99</div>
+        <div class="svc-desc">A deeper audit with competitor comparisons, custom keywords, and platform-specific OTA guidance. 24–48 hrs.</div>
+      </a>
+      <a href="services.html" class="svc-card">
+        <span class="svc-tag">Core</span>
+        <div class="svc-name">Listing Optimization</div>
+        <div class="svc-price">$600–900</div>
+        <div class="svc-desc">A complete listing rewrite — title, description, photo sequencing, pricing framework. Delivered in 5–7 days.</div>
+      </a>
+      <a href="services.html" class="svc-card">
+        <span class="svc-tag">AI Track</span>
+        <div class="svc-name">AI Workshop</div>
+        <div class="svc-price">$400/session</div>
+        <div class="svc-desc">For small business owners who want to use AI practically. Custom agenda, real tools, actionable prompts.</div>
+      </a>
+    </div>
+    <div class="services-link"><a href="services.html">View all services and pricing →</a></div>
+  </div>
+</section>
+
+<!-- LISTINGIQ FEATURE -->
+<section class="liq-section">
+  <div class="liq-inner">
+    <div class="liq-left">
+      <div class="sec-label">ListingIQ by Ksandr</div>
+      <h2>Your listing has<br>untapped revenue.<br><em>Let's find it.</em></h2>
+      <p>A free AI-powered audit that scores your vacation rental across 6 categories and shows you exactly what to fix — in under 5 minutes. No fluff, no generic tips. Real insight built on real industry expertise.</p>
+      <a href="listingiq.html" class="btn-dune">Run My Free Audit →</a>
+    </div>
+    <div class="liq-right">
+      <div class="liq-cats">
+        <div class="liq-cat"><div class="liq-cat-num">01</div><div class="liq-cat-name">Title & Keywords</div></div>
+        <div class="liq-cat"><div class="liq-cat-num">02</div><div class="liq-cat-name">Photos & Visual</div></div>
+        <div class="liq-cat"><div class="liq-cat-num">03</div><div class="liq-cat-name">Description & Copy</div></div>
+        <div class="liq-cat"><div class="liq-cat-num">04</div><div class="liq-cat-name">Pricing Strategy</div></div>
+        <div class="liq-cat"><div class="liq-cat-num">05</div><div class="liq-cat-name">Amenities & Positioning</div></div>
+        <div class="liq-cat"><div class="liq-cat-num">06</div><div class="liq-cat-name">Reviews & Trust</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="sec-label">About Ksandr</div>
+      <h2>Built by someone<br>who's been<br>in the <em>room.</em></h2>
+      <p>Six years inside the vacation rental industry — OTA strategy, owner relations, revenue optimization, and property management. Watching smart, motivated owners leave money on the table not because they weren't trying, but because they didn't have access to the right intelligence.</p>
+      <p>AI changed the equation. Ksandr combines that experience with AI tools to give every independent owner access to what the big operators have always had.</p>
+      <a href="about.html">Read the full story →</a>
+    </div>
+    <div class="about-right">
+      <div class="about-card">
+        <div class="about-card-label">Founded</div>
+        <div class="about-card-val">2026</div>
+        <div class="about-card-sub">Honolulu, Hawaii</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Mission</div>
+        <div class="about-card-val" style="font-size:16px;line-height:1.4">Give independent owners access to the same AI-powered intelligence big operators take for granted.</div>
+        <div class="about-card-sub"></div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-label">Markets Served</div>
+        <div class="about-card-val">Global</div>
+        <div class="about-card-sub">Any platform, any country, any market size</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="testi-label">What Owners Are Saying</div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-quote">"I had no idea my amenity list was costing me filter placements. Fixed it in a weekend — bookings picked up within two weeks."</div>
+        <div class="testi-attr"><strong>Sarah T.</strong>Self-managing owner · Scottsdale, AZ</div>
+      </div>
+      <div class="testi">
+        <div class="testi-quote">"The free audit alone gave me more actionable insight than anything I'd read on forums for months. The Pro Report was worth every dollar."</div>
+        <div class="testi-attr"><strong>Marcus R.</strong>3-unit portfolio · Nashville, TN</div>
+      </div>
+      <div class="testi">
+        <div class="testi-quote">"Finally an advisor who speaks both the OTA language and the AI language. The strategy session paid for itself in the first month."</div>
+        <div class="testi-attr"><strong>Lin & David K.</strong>Small PM company · Maui, HI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-left">
+      <h2>Stop guessing.<br>Start <em>winning.</em></h2>
+      <p>The free ListingIQ audit takes under 5 minutes and shows you exactly where your listing stands — and what to do about it. No card, no commitment.</p>
+    </div>
+    <div class="cta-right">
+      <a href="listingiq.html" class="btn-dune" style="font-size:12px;padding:16px 32px">Run My Free Audit →</a>
+      <a href="contact.html" class="cta-right btn-navy">Book a Strategy Session — $250</a>
+      <span class="cta-note">Aloha from Honolulu. We'll be in touch within one business day.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col-logo">
+        <div class="f-logo">
+          <div style="border:1.5px solid rgba(231,223,217,0.5);width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--linen);line-height:1">K</span>
+          </div>
+          <span class="footer-brand">KSANDR</span>
+        </div>
+        <div class="footer-tagline">"Smarter listings.<br>Stronger revenue."</div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="listingiq.html">Free Audit</a></li>
+          <li><a href="services.html">Pro Report — $99</a></li>
+          <li><a href="contact.html">Strategy Session — $250</a></li>
+          <li><a href="services.html">Listing Optimization</a></li>
+          <li><a href="services.html">Monthly Retainer</a></li>
+          <li><a href="services.html">AI Workshop</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="listingiq.html">ListingIQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@ksandr.co">hello@ksandr.co</a></li>
+          <li><a href="contact.html">Book a Call</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Ksandr. Built in Honolulu, Hawaii. All rights reserved.</div>
+      <div class="footer-email"><a href="mailto:hello@ksandr.co">hello@ksandr.co</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+</script>
+</body>
+</html>
