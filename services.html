@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Ksandr</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #3d4660;
+  --slate: #6f7789;
+  --mist: #ccd5df;
+  --linen: #e7dfd9;
+  --dune: #e3b59b;
+  --white: #ffffff;
+  --ink: #1e2130;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--navy); line-height: 1.7; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: transparent;
+  transition: background 0.35s ease, border-bottom 0.35s ease, box-shadow 0.35s ease;
+}
+nav.scrolled {
+  background: rgba(231,223,217,0.97);
+  border-bottom: 0.5px solid var(--mist);
+  box-shadow: 0 1px 24px rgba(30,33,48,0.06);
+  backdrop-filter: blur(12px);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.k-box {
+  border: 1.5px solid var(--navy);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s;
+}
+nav:not(.scrolled) .k-box { border-color: var(--linen); }
+.k-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--navy); line-height: 1;
+  transition: color 0.3s;
+}
+nav:not(.scrolled) .k-letter { color: var(--linen); }
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--navy);
+  transition: color 0.3s;
+}
+nav:not(.scrolled) .nav-brand { color: var(--linen); }
+.nav-links {
+  display: flex; align-items: center; gap: 36px; list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--navy); text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+nav:not(.scrolled) .nav-links a { color: var(--linen); }
+.nav-links a:hover { opacity: 1; }
+.nav-links a.active { opacity: 1; border-bottom: 0.5px solid var(--dune); padding-bottom: 1px; }
+.nav-cta {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--linen); background: var(--navy);
+  border: 1px solid var(--navy);
+  padding: 9px 20px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+nav:not(.scrolled) .nav-cta { background: transparent; border-color: rgba(231,223,217,0.5); }
+.nav-cta:hover { background: var(--dune); border-color: var(--dune); color: var(--ink); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: 0.3s; }
+nav:not(.scrolled) .hamburger span { background: var(--linen); }
+.mobile-menu {
+  display: none; position: fixed; top: 68px; left: 0; right: 0;
+  background: var(--linen); border-bottom: 0.5px solid var(--mist);
+  padding: 24px 32px; z-index: 99;
+  flex-direction: column; gap: 20px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.8; }
+.mobile-menu .nav-cta { align-self: flex-start; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  padding: 168px 72px 100px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 80% 110%, rgba(227,181,155,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--dune); margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.eyebrow::before { content: ''; width: 20px; height: 0.5px; background: var(--dune); flex-shrink: 0; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 400; color: var(--linen);
+  line-height: 1.05; margin-bottom: 28px;
+  max-width: 760px;
+}
+.hero h1 em { font-style: italic; color: var(--dune); }
+.hero-sub {
+  font-size: 15px; color: rgba(204,213,223,0.8);
+  line-height: 1.85; max-width: 520px; margin-bottom: 44px;
+}
+.hero-tracks {
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.track-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--linen); border: 0.5px solid rgba(231,223,217,0.25);
+  padding: 10px 18px;
+}
+.track-pill .dot { width: 6px; height: 6px; background: var(--dune); border-radius: 50%; }
+
+/* ── LAYOUT ── */
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+/* ── TRACK INTRO ── */
+.track-intro {
+  padding: 96px 0 64px;
+}
+.track-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 48px; margin-bottom: 56px;
+}
+.track-header-left { max-width: 540px; }
+.track-tag {
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--dune); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.track-tag::before { content: ''; width: 14px; height: 0.5px; background: var(--dune); }
+.track-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400; color: var(--navy);
+  line-height: 1.1; margin-bottom: 18px;
+}
+.track-title em { font-style: italic; color: var(--dune); }
+.track-desc { font-size: 14px; color: var(--slate); line-height: 1.85; }
+.track-header-right {
+  background: var(--white); border: 0.5px solid var(--mist);
+  padding: 24px 28px; min-width: 240px; flex-shrink: 0;
+}
+.track-stat-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); margin-bottom: 6px; }
+.track-stat-val { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+.track-stat-sub { font-size: 11px; color: var(--slate); }
+
+/* ── SERVICE CARDS ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--mist);
+  border: 0.5px solid var(--mist);
+  margin-bottom: 64px;
+}
+.svc-card {
+  background: var(--white);
+  padding: 32px 28px;
+  position: relative;
+  transition: background 0.2s;
+}
+.svc-card:hover { background: #fafaf9; }
+.svc-badge {
+  display: inline-block;
+  font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 8px; margin-bottom: 16px;
+  border: 0.5px solid var(--mist); color: var(--slate);
+}
+.svc-badge.lead { border-color: rgba(227,181,155,0.4); color: var(--dune); background: rgba(227,181,155,0.06); }
+.svc-badge.rec { border-color: rgba(34,197,94,0.35); color: #16a34a; background: rgba(34,197,94,0.05); }
+.svc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 500; color: var(--navy);
+  margin-bottom: 6px; line-height: 1.2;
+}
+.svc-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300; color: var(--navy);
+  margin-bottom: 4px; line-height: 1;
+}
+.svc-price sup { font-size: 14px; vertical-align: super; font-weight: 400; }
+.svc-delivery { font-size: 11px; color: var(--slate); margin-bottom: 20px; letter-spacing: 0.03em; }
+.svc-divider { height: 0.5px; background: var(--mist); margin-bottom: 20px; }
+.svc-list { list-style: none; }
+.svc-list li {
+  font-size: 12px; color: var(--slate); line-height: 1.6;
+  padding: 5px 0; display: flex; gap: 8px; align-items: flex-start;
+}
+.svc-list li::before { content: '—'; color: var(--dune); flex-shrink: 0; margin-top: 1px; font-size: 11px; }
+.svc-upsell {
+  margin-top: 20px; padding-top: 16px; border-top: 0.5px dashed var(--mist);
+  font-size: 10px; letter-spacing: 0.06em; color: var(--slate);
+}
+.svc-upsell span { color: var(--dune); }
+.svc-card.featured { background: var(--navy); }
+.svc-card.featured .svc-name,
+.svc-card.featured .svc-price { color: var(--linen); }
+.svc-card.featured .svc-delivery,
+.svc-card.featured .svc-list li { color: rgba(204,213,223,0.7); }
+.svc-card.featured .svc-list li::before { color: var(--dune); }
+.svc-card.featured .svc-divider { background: rgba(204,213,223,0.15); }
+.svc-card.featured .svc-upsell { color: rgba(204,213,223,0.5); border-top-color: rgba(204,213,223,0.1); }
+.svc-card.featured:hover { background: #424c6b; }
+
+/* ── PROCESS ── */
+.process-section {
+  padding: 64px 0;
+  border-top: 0.5px solid var(--mist);
+}
+.process-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--slate); margin-bottom: 36px;
+}
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 0.5px solid var(--mist);
+}
+.step {
+  padding: 28px 24px;
+  border-right: 0.5px solid var(--mist);
+  background: var(--white);
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300; color: var(--mist);
+  line-height: 1; margin-bottom: 14px;
+}
+.step-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 500; color: var(--navy);
+  margin-bottom: 8px;
+}
+.step-desc { font-size: 12px; color: var(--slate); line-height: 1.65; }
+
+/* ── DIVIDER ── */
+.section-divider {
+  border: none; border-top: 0.5px solid var(--mist);
+  margin: 0;
+}
+
+/* ── AI TRACK ── */
+.ai-track {
+  padding: 80px 0 96px;
+}
+.ai-track-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: start;
+}
+.ai-card {
+  background: var(--white); border: 0.5px solid var(--mist);
+  padding: 36px 32px;
+}
+.ai-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 500; color: var(--navy);
+  margin-bottom: 6px;
+}
+.ai-card-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px; font-weight: 300; color: var(--navy);
+  margin-bottom: 4px; line-height: 1;
+}
+.ai-card-delivery { font-size: 11px; color: var(--slate); margin-bottom: 22px; }
+.ai-card-divider { height: 0.5px; background: var(--mist); margin-bottom: 22px; }
+.ai-card-desc { font-size: 13px; color: var(--slate); line-height: 1.75; margin-bottom: 18px; }
+
+/* ── CALLOUT ── */
+.callout-banner {
+  background: var(--navy); padding: 64px 72px;
+  display: flex; align-items: center; justify-content: space-between; gap: 48px;
+  flex-wrap: wrap;
+}
+.callout-text-block .callout-label {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--dune); margin-bottom: 12px;
+}
+.callout-text-block .callout-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 400;
+  color: var(--linen); line-height: 1.15;
+}
+.callout-text-block .callout-headline em { font-style: italic; color: var(--dune); }
+.callout-text-block .callout-sub {
+  font-size: 13px; color: rgba(204,213,223,0.65);
+  margin-top: 12px; line-height: 1.7; max-width: 380px;
+}
+.cta-group { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink); background: var(--dune);
+  padding: 14px 28px; text-decoration: none;
+  border: 1px solid var(--dune);
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: #d4a385; transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--linen); background: transparent;
+  padding: 14px 28px; text-decoration: none;
+  border: 1px solid rgba(231,223,217,0.3);
+  transition: border-color 0.2s;
+}
+.btn-secondary:hover { border-color: rgba(231,223,217,0.6); }
+
+/* ── FAQ ── */
+.faq-section { padding: 80px 0 96px; }
+.faq-header { margin-bottom: 48px; }
+.faq-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 3.5vw, 46px); font-weight: 400; color: var(--navy);
+}
+.faq-header h2 em { font-style: italic; color: var(--dune); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--mist); border: 0.5px solid var(--mist); }
+.faq-item { background: var(--white); padding: 28px 32px; }
+.faq-q {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 500; color: var(--navy);
+  margin-bottom: 10px; line-height: 1.25;
+}
+.faq-a { font-size: 13px; color: var(--slate); line-height: 1.75; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); padding: 56px 72px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 24px; flex-wrap: wrap;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-k-box { border: 1.5px solid var(--linen); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; color: var(--linen); }
+.footer-links { display: flex; gap: 28px; list-style: none; }
+.footer-links a { font-size: 12px; color: rgba(111,119,137,0.6); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--slate); }
+.footer-meta { font-size: 11px; color: rgba(111,119,137,0.4); text-align: right; line-height: 1.9; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 128px 28px 72px; }
+  .page-wrap { padding: 0 24px; }
+  .track-header { flex-direction: column; gap: 24px; }
+  .track-header-right { width: 100%; min-width: unset; }
+  .services-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .step:nth-child(2) { border-right: none; }
+  .step:nth-child(3) { border-right: 0.5px solid var(--mist); }
+  .ai-track-inner { grid-template-columns: 1fr; }
+  .callout-banner { padding: 48px 28px; }
+  .faq-grid { grid-template-columns: 1fr; }
+  footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .footer-meta { text-align: left; }
+}
+@media (max-width: 600px) {
+  .process-steps { grid-template-columns: 1fr; }
+  .step { border-right: none; border-bottom: 0.5px solid var(--mist); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="k-box"><span class="k-letter">K</span></div>
+    <span class="nav-brand">KSANDR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Book a Call</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="services.html">Services</a>
+  <a href="listingiq.html">ListingIQ</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="nav-cta">Book a Call</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Services & Pricing</div>
+    <h1>Built for owners<br>who mean <em>business.</em></h1>
+    <p class="hero-sub">Two tracks. One mission. Whether you have one listing or a growing portfolio, there's a service that meets you where you are — and gets you where you want to go.</p>
+    <div class="hero-tracks">
+      <div class="track-pill"><span class="dot"></span> ListingIQ — Vacation Rental Intelligence</div>
+      <div class="track-pill"><span class="dot"></span> Ksandr AI — Small Business Advisory</div>
+    </div>
+  </div>
+</section>
+
+<!-- LISTINGIQ TRACK -->
+<div class="page-wrap">
+  <div class="track-intro">
+    <div class="track-header">
+      <div class="track-header-left">
+        <div class="track-tag">Track 01</div>
+        <h2 class="track-title">ListingIQ<br><em>for Vacation Rental Owners</em></h2>
+        <p class="track-desc">Six years of OTA strategy, owner relations, and revenue optimization — distilled into a clear progression from free audit to full advisory. Every tier has a defined outcome and a natural next step.</p>
+      </div>
+      <div class="track-header-right">
+        <div class="track-stat-label">Entry Point</div>
+        <div class="track-stat-val">$0</div>
+        <div class="track-stat-sub">Free ListingIQ audit — no card required</div>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <!-- Free Audit -->
+      <div class="svc-card">
+        <span class="svc-badge lead">Lead Entry</span>
+        <div class="svc-name">ListingIQ<br>Free Audit</div>
+        <div class="svc-price">Free</div>
+        <div class="svc-delivery">Delivered instantly</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>AI-scored report across 6 categories</li>
+          <li>Overall performance score + quick wins</li>
+          <li>Revenue impact estimate</li>
+          <li>Priority action to implement now</li>
+          <li>Works for any platform, any market</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>ListingIQ Pro Report</span></div>
+      </div>
+
+      <!-- Pro Report -->
+      <div class="svc-card">
+        <span class="svc-badge">Entry Paid</span>
+        <div class="svc-name">ListingIQ<br>Pro Report</div>
+        <div class="svc-price"><sup>$</sup>99</div>
+        <div class="svc-delivery">Delivered in 24–48 hours</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>Everything in the free audit, deeper</li>
+          <li>Competitor listing comparison</li>
+          <li>Custom keyword & title recommendations</li>
+          <li>Photo and description scoring</li>
+          <li>Platform-specific OTA guidance</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>Strategy Session</span></div>
+      </div>
+
+      <!-- Strategy Session -->
+      <div class="svc-card featured">
+        <span class="svc-badge lead">Most Popular</span>
+        <div class="svc-name">Strategy<br>Session</div>
+        <div class="svc-price"><sup>$</sup>250</div>
+        <div class="svc-delivery">60 min via Calendly · Recording included</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>1:1 deep dive on your listing strategy</li>
+          <li>Live audit review and Q&A</li>
+          <li>Custom action plan you leave with</li>
+          <li>OTA algorithm positioning advice</li>
+          <li>Pricing strategy and demand windows</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>Listing Optimization</span></div>
+      </div>
+
+      <!-- Listing Optimization -->
+      <div class="svc-card">
+        <span class="svc-badge">Core</span>
+        <div class="svc-name">Listing<br>Optimization</div>
+        <div class="svc-price"><sup>$</sup>600–900</div>
+        <div class="svc-delivery">Delivered in 5–7 business days</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>Complete listing rewrite (title, description)</li>
+          <li>Photo sequencing and caption review</li>
+          <li>Amenity gap analysis</li>
+          <li>Pricing strategy framework</li>
+          <li>OTA-specific SEO optimization</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>Monthly Retainer</span></div>
+      </div>
+
+      <!-- Retainer -->
+      <div class="svc-card">
+        <span class="svc-badge rec">Recurring</span>
+        <div class="svc-name">Monthly<br>Retainer</div>
+        <div class="svc-price"><sup>$</sup>750–1,500<span style="font-size:14px;font-weight:300">/mo</span></div>
+        <div class="svc-delivery">Ongoing advisory partnership</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>Monthly performance review and strategy call</li>
+          <li>Ongoing listing and pricing updates</li>
+          <li>Seasonal demand analysis</li>
+          <li>OTA algorithm change monitoring</li>
+          <li>Direct access via email between sessions</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>Portfolio Audit</span></div>
+      </div>
+
+      <!-- Portfolio Audit -->
+      <div class="svc-card">
+        <span class="svc-badge">Enterprise</span>
+        <div class="svc-name">Portfolio<br>Audit</div>
+        <div class="svc-price"><sup>$</sup>1,500–3,000</div>
+        <div class="svc-delivery">2-week engagement</div>
+        <div class="svc-divider"></div>
+        <ul class="svc-list">
+          <li>Full audit of 5+ listings or PM portfolio</li>
+          <li>Cross-property revenue benchmarking</li>
+          <li>OTA presence and ranking analysis</li>
+          <li>Competitive positioning report</li>
+          <li>90-day implementation roadmap</li>
+        </ul>
+        <div class="svc-upsell">Next step → <span>Advisory Retainer</span></div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="process-section">
+      <div class="process-title">How It Works</div>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-name">Start Free</div>
+          <div class="step-desc">Run the free ListingIQ audit — no card, no commitment. Get a real score and real insight in minutes.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-name">Review Your Report</div>
+          <div class="step-desc">See where your listing stands across 6 categories. Understand the revenue you're leaving on the table.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-name">Book a Session</div>
+          <div class="step-desc">Ready to go deeper? Get in Touch and we'll build a custom action plan together.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-name">Stay Sharp</div>
+          <div class="step-desc">For ongoing performance, a Monthly Retainer keeps your listings optimized as the market moves.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- KSANDR AI TRACK -->
+<div class="page-wrap">
+  <div class="ai-track">
+    <div class="track-header">
+      <div class="track-header-left">
+        <div class="track-tag">Track 02</div>
+        <h2 class="track-title">Ksandr AI<br><em>for Small Business Owners</em></h2>
+        <p class="track-desc">AI is rewriting how small businesses operate. Most owners know they should be using it — they just don't know how. Ksandr AI makes that practical and immediate.</p>
+      </div>
+      <div class="track-header-right">
+        <div class="track-stat-label">Starting At</div>
+        <div class="track-stat-val">$400</div>
+        <div class="track-stat-sub">Per workshop session · live or recorded</div>
+      </div>
+    </div>
+
+    <div class="ai-track-inner">
+      <div class="ai-card">
+        <span class="svc-badge">One-Time</span>
+        <div class="ai-card-name">AI Workshop</div>
+        <div class="ai-card-price"><sup style="font-size:16px">$</sup>400<span style="font-size:14px;font-weight:300">/session</span></div>
+        <div class="ai-card-delivery">Live or recorded · team-friendly</div>
+        <div class="ai-card-divider"></div>
+        <div class="ai-card-desc">A hands-on session designed to take your team from AI-curious to AI-functional. Walk away with specific tools, workflows, and prompts tailored to your actual business — not generic demos.</div>
+        <ul class="svc-list">
+          <li>Custom agenda based on your business type</li>
+          <li>Tool selection and setup guidance</li>
+          <li>Real prompt examples your team can use tomorrow</li>
+          <li>Recording and written summary included</li>
+        </ul>
+      </div>
+      <div class="ai-card">
+        <span class="svc-badge rec">Recurring</span>
+        <div class="ai-card-name">AI Advisory Retainer</div>
+        <div class="ai-card-price"><sup style="font-size:16px">$</sup>1,000–2,000<span style="font-size:14px;font-weight:300">/mo</span></div>
+        <div class="ai-card-delivery">Ongoing advisory partnership</div>
+        <div class="ai-card-divider"></div>
+        <div class="ai-card-desc">For businesses that want to build AI into how they operate — not just dabble. A monthly strategic partnership that helps you identify opportunities, implement tools, and stay ahead as the landscape shifts.</div>
+        <ul class="svc-list">
+          <li>Monthly strategy calls + async support</li>
+          <li>AI tool audits and implementation plans</li>
+          <li>Workflow automation roadmap</li>
+          <li>Ongoing monitoring of relevant AI developments</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="callout-banner">
+  <div class="callout-text-block">
+    <div class="callout-label">Not Sure Where to Start?</div>
+    <div class="callout-headline">Start with the free audit.<br><em>Everything follows from there.</em></div>
+    <p class="callout-sub">The ListingIQ free audit takes 5 minutes and shows you exactly where your listing stands. No card. No commitment. Just real insight.</p>
+  </div>
+  <div class="cta-group">
+    <a href="listingiq-tool.html" class="btn-primary">Run Free Audit</a>
+    <a href="contact.html" class="btn-secondary">Get in Touch</a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="page-wrap">
+  <div class="faq-section">
+    <div class="faq-header">
+      <div class="eyebrow" style="color:var(--dune);font-size:10px;letter-spacing:0.2em;margin-bottom:12px;display:flex;align-items:center;gap:10px;">
+        <span style="display:inline-block;width:16px;height:0.5px;background:var(--dune)"></span>Common Questions
+      </div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.5vw,46px);font-weight:400;color:var(--navy)">Frequently <em style="font-style:italic;color:var(--dune)">Asked</em></h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Is the free audit actually free?</div>
+        <div class="faq-a">Yes — no credit card, no hidden fees, no pitch call forced on you. The free audit delivers a real, scored report based on your listing details. You get genuine value before spending anything.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you only work with Hawaii listings?</div>
+        <div class="faq-a">Not at all. Ksandr serves VR owners globally — any platform, any market, any country. The tool and advisory work is designed for Airbnb, Vrbo, Booking.com, and direct booking across all markets.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's the difference between Free and Pro?</div>
+        <div class="faq-a">The free audit gives you your score, quick wins, and a priority action. The Pro Report goes deeper — competitor comparisons, custom keyword recommendations, and platform-specific OTA strategy. Think: overview vs. full playbook.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">I only have one listing. Is a retainer worth it?</div>
+        <div class="faq-a">Usually not right away. Start with an audit and a strategy session. Once you've optimized and started seeing results, retainers make the most sense for owners scaling past 2–3 units or managing high seasonality.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do you handle confidential business information?</div>
+        <div class="faq-a">Everything shared in sessions and reports stays between us. Ksandr doesn't share, publish, or reference client details without explicit permission. Any case studies used are anonymized by default.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I'm not a vacation rental owner?</div>
+        <div class="faq-a">The Ksandr AI track is built specifically for small business owners of all types — restaurants, boutiques, service businesses, and more. If you want to use AI smarter in your business, there's a path for you here.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-k-box"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--linen);line-height:1">K</span></div>
+    <span class="footer-brand">KSANDR</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-meta">
+    hello@ksandr.co<br>
+    Honolulu, Hawaii · 2026
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+</script>
+</body>
+</html>

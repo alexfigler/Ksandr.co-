@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ksandr</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #3d4660;
+  --slate: #6f7789;
+  --mist: #ccd5df;
+  --linen: #e7dfd9;
+  --dune: #e3b59b;
+  --white: #ffffff;
+  --ink: #1e2130;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--navy); line-height: 1.7; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.35s ease, border-bottom 0.35s ease, box-shadow 0.35s ease; }
+nav.scrolled { background: rgba(231,223,217,0.97); border-bottom: 0.5px solid var(--mist); box-shadow: 0 1px 24px rgba(30,33,48,0.06); backdrop-filter: blur(12px); }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.k-box { border: 1.5px solid var(--navy); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+nav:not(.scrolled) .k-box { border-color: var(--linen); }
+.k-letter { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); line-height: 1; transition: color 0.3s; }
+nav:not(.scrolled) .k-letter { color: var(--linen); }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; letter-spacing: 0.12em; color: var(--navy); transition: color 0.3s; }
+nav:not(.scrolled) .nav-brand { color: var(--linen); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.06em; color: var(--navy); text-decoration: none; opacity: 0.75; transition: opacity 0.2s; }
+nav:not(.scrolled) .nav-links a { color: var(--linen); }
+.nav-links a:hover { opacity: 1; }
+.nav-links a.active { opacity: 1; border-bottom: 0.5px solid var(--dune); padding-bottom: 1px; }
+.nav-cta { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--linen); background: var(--navy); border: 1px solid var(--navy); padding: 9px 20px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+nav:not(.scrolled) .nav-cta { background: transparent; border-color: rgba(231,223,217,0.5); }
+.nav-cta:hover { background: var(--dune); border-color: var(--dune); color: var(--ink); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: 0.3s; }
+nav:not(.scrolled) .hamburger span { background: var(--linen); }
+.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: var(--linen); border-bottom: 0.5px solid var(--mist); padding: 24px 32px; z-index: 99; flex-direction: column; gap: 20px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.8; }
+
+/* ── HERO ── */
+.hero { background: var(--navy); padding: 148px 72px 0; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 90% 80%, rgba(227,181,155,0.06) 0%, transparent 60%); }
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dune); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 20px; height: 0.5px; background: var(--dune); flex-shrink: 0; }
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+.hero-left h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5.5vw, 76px); font-weight: 400; color: var(--linen); line-height: 1.05; margin-bottom: 24px; }
+.hero-left h1 em { font-style: italic; color: var(--dune); }
+.hero-left p { font-size: 14px; color: rgba(204,213,223,0.7); line-height: 1.85; }
+.hero-right { padding-bottom: 0; }
+
+/* Options cards (in hero) */
+.contact-options { display: flex; flex-direction: column; gap: 2px; padding-bottom: 0; }
+.option-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(204,213,223,0.1); padding: 20px 24px; cursor: pointer; transition: background 0.2s; text-decoration: none; display: block; }
+.option-card:hover { background: rgba(255,255,255,0.07); }
+.option-card.primary-opt { background: rgba(227,181,155,0.12); border-color: rgba(227,181,155,0.2); }
+.option-card.primary-opt:hover { background: rgba(227,181,155,0.18); }
+.opt-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(204,213,223,0.4); margin-bottom: 5px; }
+.option-card.primary-opt .opt-label { color: rgba(227,181,155,0.6); }
+.opt-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--linen); line-height: 1.2; margin-bottom: 4px; }
+.opt-desc { font-size: 12px; color: rgba(204,213,223,0.55); line-height: 1.5; }
+.option-card.primary-opt .opt-desc { color: rgba(227,181,155,0.6); }
+.opt-arrow { float: right; margin-top: -32px; font-size: 16px; color: rgba(227,181,155,0.4); }
+
+/* ── MAIN BODY ── */
+.contact-body { max-width: 1100px; margin: 0 auto; padding: 72px 72px 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+/* ── FORM ── */
+.form-section {}
+.form-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.form-tag::before { content: ''; width: 14px; height: 0.5px; background: var(--dune); }
+.form-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3vw, 40px); font-weight: 400; color: var(--navy); line-height: 1.15; margin-bottom: 36px; }
+.form-title em { font-style: italic; color: var(--dune); }
+
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.field-group { display: flex; flex-direction: column; gap: 6px; }
+.field-group label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); font-weight: 500; }
+.field-group input,
+.field-group select,
+.field-group textarea {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; color: var(--navy);
+  background: var(--white);
+  border: 0.5px solid var(--mist);
+  padding: 12px 14px;
+  width: 100%; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none; appearance: none;
+}
+.field-group input::placeholder,
+.field-group textarea::placeholder { color: rgba(111,119,137,0.45); }
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(61,70,96,0.06);
+}
+.field-group textarea { resize: vertical; min-height: 120px; line-height: 1.65; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.select-wrap { position: relative; }
+.select-wrap select { cursor: pointer; }
+.select-wrap::after { content: '↓'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--slate); pointer-events: none; }
+.form-submit-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--linen); background: var(--navy);
+  border: 1px solid var(--navy); padding: 15px 32px;
+  cursor: pointer; transition: background 0.2s;
+  align-self: flex-start;
+}
+.form-submit-btn:hover { background: var(--ink); border-color: var(--ink); }
+.form-note { font-size: 11px; color: var(--slate); margin-top: 8px; }
+.form-success {
+  display: none; background: var(--white); border: 0.5px solid var(--mist);
+  border-left: 3px solid var(--dune); padding: 20px 24px;
+}
+.form-success.show { display: block; }
+.form-success p { font-size: 14px; color: var(--navy); line-height: 1.7; }
+
+/* ── RIGHT SIDE ── */
+.info-section { display: flex; flex-direction: column; gap: 32px; }
+
+/* Calendly block */
+.calendly-block { background: var(--navy); padding: 32px; }
+.cal-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dune); margin-bottom: 10px; }
+.cal-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--linen); margin-bottom: 10px; line-height: 1.2; }
+.cal-title em { font-style: italic; color: var(--dune); }
+.cal-desc { font-size: 12px; color: rgba(204,213,223,0.65); line-height: 1.7; margin-bottom: 20px; }
+.cal-btn { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--dune); padding: 12px 22px; text-decoration: none; border: 1px solid var(--dune); transition: background 0.2s; }
+.cal-btn:hover { background: #d4a385; }
+.cal-includes { list-style: none; margin-top: 16px; }
+.cal-includes li { font-size: 11px; color: rgba(204,213,223,0.5); padding: 4px 0; display: flex; gap: 8px; }
+.cal-includes li::before { content: '—'; color: rgba(227,181,155,0.4); flex-shrink: 0; }
+
+/* Info cards */
+.info-card { background: var(--white); border: 0.5px solid var(--mist); padding: 24px 26px; }
+.info-card-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); margin-bottom: 8px; }
+.info-card-content { font-size: 13px; color: var(--navy); line-height: 1.7; }
+.info-card-content a { color: var(--navy); text-decoration: none; border-bottom: 0.5px solid var(--mist); transition: border-color 0.2s; }
+.info-card-content a:hover { border-color: var(--dune); }
+
+/* What to expect */
+.expect-list { list-style: none; }
+.expect-list li { font-size: 12px; color: var(--slate); padding: 10px 0; border-bottom: 0.5px solid var(--mist); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+.expect-list li:last-child { border-bottom: none; }
+.expect-list li::before { content: '—'; color: var(--dune); flex-shrink: 0; font-size: 11px; margin-top: 1px; }
+
+/* ── AUDIT STRIP ── */
+.audit-strip { background: var(--ink); padding: 56px 72px; }
+.audit-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+.audit-strip-text .label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dune); margin-bottom: 10px; }
+.audit-strip-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 2.8vw, 36px); font-weight: 400; color: var(--linen); line-height: 1.15; }
+.audit-strip-text h2 em { font-style: italic; color: var(--dune); }
+.audit-strip-text p { font-size: 13px; color: rgba(204,213,223,0.5); margin-top: 8px; }
+.btn-dune { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--dune); padding: 14px 28px; text-decoration: none; border: 1px solid var(--dune); transition: background 0.2s; }
+.btn-dune:hover { background: #d4a385; }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 56px 72px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 0.5px solid rgba(255,255,255,0.04); }
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; color: var(--linen); }
+.footer-links { display: flex; gap: 28px; list-style: none; }
+.footer-links a { font-size: 12px; color: rgba(111,119,137,0.6); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--slate); }
+.footer-meta { font-size: 11px; color: rgba(111,119,137,0.4); text-align: right; line-height: 1.9; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 120px 24px 0; }
+  .hero-layout { grid-template-columns: 1fr; gap: 36px; }
+  .contact-body { grid-template-columns: 1fr; padding: 48px 24px 72px; gap: 40px; }
+  .field-row { grid-template-columns: 1fr; }
+  .audit-strip { padding: 48px 24px; }
+  .audit-strip-inner { flex-direction: column; align-items: flex-start; }
+  footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  .footer-meta { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="k-box"><span class="k-letter">K</span></div>
+    <span class="nav-brand">KSANDR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="listingiq-tool.html" class="nav-cta">Free Audit</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="services.html">Services</a>
+  <a href="listingiq.html">ListingIQ</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="listingiq-tool.html" class="nav-cta">Free Audit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Get in Touch</div>
+    <div class="hero-layout">
+      <div class="hero-left">
+        <h1>Let's talk about<br>your <em>listing.</em></h1>
+        <p>Whether you're ready to book a Strategy Session, want to know more before committing, or have a question about which service fits — send a message. You'll hear back within one business day.</p>
+      </div>
+      <div class="hero-right">
+        <div class="contact-options">
+          <a href="#calendly" class="option-card primary-opt">
+            <div class="opt-label">Fastest Path</div>
+            <div class="opt-name">Get in Touch</div>
+            <div class="opt-desc">$250 · 60 min · via Calendly</div>
+          </a>
+          <a href="#form" class="option-card">
+            <div class="opt-label">Get Answers First</div>
+            <div class="opt-name">Send a Message</div>
+            <div class="opt-desc">Response within 1 business day</div>
+          </a>
+          <a href="listingiq-tool.html" class="option-card">
+            <div class="opt-label">Not Sure Yet?</div>
+            <div class="opt-name">Run the Free Audit</div>
+            <div class="opt-desc">5 minutes · Instant results · No card needed</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BODY -->
+<div class="contact-body" id="form">
+
+  <!-- FORM -->
+  <div class="form-section">
+    <div class="form-tag">Send a Message</div>
+    <h2 class="form-title">Tell us what<br>you're working <em>on.</em></h2>
+
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="field-row">
+        <div class="field-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" placeholder="Aloha" required>
+        </div>
+        <div class="field-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" placeholder="Smith" required>
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field-group">
+        <label for="inquiry">What are you looking for?</label>
+        <div class="select-wrap">
+          <select id="inquiry">
+            <option value="" disabled selected>Select one...</option>
+            <option value="free-audit">I want to run a free ListingIQ audit</option>
+            <option value="pro-report">I'm interested in the Pro Report ($99)</option>
+            <option value="strategy">I want to book a Strategy Session ($250)</option>
+            <option value="optimization">I need a full Listing Optimization</option>
+            <option value="retainer">I'm interested in a Monthly Retainer</option>
+            <option value="portfolio">Portfolio Audit for multiple listings</option>
+            <option value="ai-workshop">AI Workshop for my small business</option>
+            <option value="just-looking">Just exploring — not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label for="platform">Platform(s)</label>
+        <input type="text" id="platform" placeholder="Airbnb, Vrbo, direct — or all three...">
+      </div>
+      <div class="field-group">
+        <label for="message">Tell me about your situation</label>
+        <textarea id="message" placeholder="Where are you at right now? What's frustrating you, what's working, or what you're hoping to figure out — the more context, the better."></textarea>
+      </div>
+      <button type="submit" class="form-submit-btn">Send Message</button>
+      <p class="form-note">Mahalo for reaching out — you'll hear back within one business day.</p>
+    </form>
+
+    <div class="form-success" id="success-msg">
+      <p><strong>Mahalo!</strong> Your message is on its way. I'll be in touch within one business day. In the meantime, if you haven't already — run your free ListingIQ audit at <a href="listingiq-tool.html" style="color:var(--navy);border-bottom:0.5px solid var(--mist)">ksandr.co/listingiq</a>.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="info-section">
+
+    <!-- Calendly Block -->
+    <div class="calendly-block" id="calendly">
+      <div class="cal-label">Book Direct</div>
+      <div class="cal-title">Strategy Session<br><em>— $250</em></div>
+      <div class="cal-desc">Ready to go deep? Book a 60-minute Strategy Session and we'll build a custom action plan around your specific listing, market, and goals.</div>
+      <a href="contact.html" class="cal-btn" target="_blank">Book via Calendly →</a>
+      <ul class="cal-includes">
+        <li>60 minutes via video call</li>
+        <li>Full audit review and Q&A</li>
+        <li>Custom action plan you keep</li>
+        <li>Recording included</li>
+        <li>No prep needed — just show up</li>
+      </ul>
+    </div>
+
+    <!-- Direct Email -->
+    <div class="info-card">
+      <div class="info-card-label">Direct Email</div>
+      <div class="info-card-content">
+        <a href="mailto:hello@ksandr.co">hello@ksandr.co</a><br>
+        <span style="font-size:12px;color:var(--slate);margin-top:4px;display:block">Response within 1 business day, usually faster.</span>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="info-card">
+      <div class="info-card-label">Based In</div>
+      <div class="info-card-content">
+        Honolulu, Hawaii (HST · UTC−10)<br>
+        <span style="font-size:12px;color:var(--slate);margin-top:4px;display:block">Serving owners globally. Remote sessions available across all time zones.</span>
+      </div>
+    </div>
+
+    <!-- What to Expect -->
+    <div class="info-card">
+      <div class="info-card-label">What to Expect</div>
+      <ul class="expect-list">
+        <li>A real response — not a bot, not a template</li>
+        <li>An honest take on what you actually need</li>
+        <li>No pressure to buy what you don't need</li>
+        <li>Clear next steps, whatever the outcome</li>
+        <li>Response within 1 business day</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUDIT STRIP -->
+<div class="audit-strip">
+  <div class="audit-strip-inner">
+    <div class="audit-strip-text">
+      <div class="label">Not ready to reach out yet?</div>
+      <h2>Start with the <em>free audit.</em></h2>
+      <p>No commitment. No card. Just real insight in under 5 minutes.</p>
+    </div>
+    <a href="listingiq-tool.html" class="btn-dune">Run Free ListingIQ Audit →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div style="border:1.5px solid var(--linen);width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--linen);line-height:1">K</span>
+    </div>
+    <span class="footer-brand">KSANDR</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-meta">
+    hello@ksandr.co<br>
+    Honolulu, Hawaii · 2026
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const success = document.getElementById('success-msg');
+  form.style.display = 'none';
+  success.classList.add('show');
+  success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>

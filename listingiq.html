@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ListingIQ — Free Vacation Rental Audit by Ksandr</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #3d4660;
+  --slate: #6f7789;
+  --mist: #ccd5df;
+  --linen: #e7dfd9;
+  --dune: #e3b59b;
+  --white: #ffffff;
+  --ink: #1e2130;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--navy); line-height: 1.7; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.35s ease, border-bottom 0.35s ease, box-shadow 0.35s ease; }
+nav.scrolled { background: rgba(231,223,217,0.97); border-bottom: 0.5px solid var(--mist); box-shadow: 0 1px 24px rgba(30,33,48,0.06); backdrop-filter: blur(12px); }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.k-box { border: 1.5px solid var(--navy); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+nav:not(.scrolled) .k-box { border-color: var(--linen); }
+.k-letter { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); line-height: 1; transition: color 0.3s; }
+nav:not(.scrolled) .k-letter { color: var(--linen); }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; letter-spacing: 0.12em; color: var(--navy); transition: color 0.3s; }
+nav:not(.scrolled) .nav-brand { color: var(--linen); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 12px; font-weight: 400; letter-spacing: 0.06em; color: var(--navy); text-decoration: none; opacity: 0.75; transition: opacity 0.2s; }
+nav:not(.scrolled) .nav-links a { color: var(--linen); }
+.nav-links a:hover { opacity: 1; }
+.nav-links a.active { opacity: 1; border-bottom: 0.5px solid var(--dune); padding-bottom: 1px; }
+.nav-cta { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--linen); background: var(--navy); border: 1px solid var(--navy); padding: 9px 20px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+nav:not(.scrolled) .nav-cta { background: transparent; border-color: rgba(231,223,217,0.5); }
+.nav-cta:hover { background: var(--dune); border-color: var(--dune); color: var(--ink); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--navy); transition: 0.3s; }
+nav:not(.scrolled) .hamburger span { background: var(--linen); }
+.mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: var(--linen); border-bottom: 0.5px solid var(--mist); padding: 24px 32px; z-index: 99; flex-direction: column; gap: 20px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-size: 14px; color: var(--navy); text-decoration: none; opacity: 0.8; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy); padding: 160px 72px 80px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: rgba(204,213,223,0.08);
+}
+.hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; opacity: 0.4;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.hero-left {}
+.eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dune); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ''; width: 20px; height: 0.5px; background: var(--dune); flex-shrink: 0; }
+.hero-left h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5.5vw, 76px); font-weight: 400; color: var(--linen); line-height: 1.05; margin-bottom: 24px; }
+.hero-left h1 em { font-style: italic; color: var(--dune); }
+.hero-left p { font-size: 15px; color: rgba(204,213,223,0.75); line-height: 1.85; margin-bottom: 36px; max-width: 460px; }
+.hero-cta-group { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-dune { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); background: var(--dune); padding: 14px 28px; text-decoration: none; border: 1px solid var(--dune); transition: background 0.2s, transform 0.15s; }
+.btn-dune:hover { background: #d4a385; transform: translateY(-1px); }
+.btn-ghost { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(231,223,217,0.7); background: transparent; padding: 14px 28px; text-decoration: none; border: 1px solid rgba(231,223,217,0.2); transition: border-color 0.2s; }
+.btn-ghost:hover { border-color: rgba(231,223,217,0.5); color: var(--linen); }
+
+/* ── REPORT CARD (hero right) ── */
+.report-preview {
+  background: var(--white); border: 0.5px solid rgba(204,213,223,0.2);
+  padding: 28px; position: relative;
+}
+.report-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 0.5px solid var(--mist); }
+.report-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; color: var(--navy); }
+.report-platform { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); margin-top: 3px; }
+.report-score-big { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--navy); line-height: 1; }
+.report-score-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 2px; }
+.score-bars { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.score-row { display: flex; align-items: center; gap: 10px; }
+.score-label { font-size: 11px; color: var(--slate); min-width: 110px; }
+.score-bar-wrap { flex: 1; height: 4px; background: var(--mist); border-radius: 0; overflow: hidden; }
+.score-bar { height: 100%; background: var(--navy); border-radius: 0; }
+.score-bar.high { background: var(--navy); }
+.score-bar.med { background: var(--dune); }
+.score-bar.low { background: var(--slate); }
+.score-num { font-size: 11px; font-weight: 500; color: var(--navy); min-width: 28px; text-align: right; }
+.report-action { background: var(--linen); padding: 14px 16px; border-top: 0.5px solid var(--mist); }
+.action-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dune); margin-bottom: 4px; }
+.action-text { font-size: 12px; color: var(--navy); line-height: 1.5; }
+.report-badge { position: absolute; top: -10px; right: 20px; background: var(--dune); color: var(--ink); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; }
+
+/* ── PAGE WRAP ── */
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 0 72px; }
+
+/* ── HOW IT WORKS ── */
+.how-section { padding: 96px 0 80px; }
+.section-header { margin-bottom: 52px; }
+.section-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.section-tag::before { content: ''; width: 14px; height: 0.5px; background: var(--dune); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 3.5vw, 48px); font-weight: 400; color: var(--navy); line-height: 1.1; }
+.section-title em { font-style: italic; color: var(--dune); }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--mist); border: 0.5px solid var(--mist); }
+.step { background: var(--white); padding: 32px 24px; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--mist); line-height: 1; margin-bottom: 16px; }
+.step-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--navy); margin-bottom: 10px; }
+.step-desc { font-size: 12px; color: var(--slate); line-height: 1.7; }
+
+/* ── CATEGORIES ── */
+.categories-section { padding: 64px 0 80px; border-top: 0.5px solid var(--mist); }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--mist); border: 0.5px solid var(--mist); }
+.cat-card { background: var(--white); padding: 28px 24px; }
+.cat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--mist); line-height: 1; margin-bottom: 10px; }
+.cat-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--navy); margin-bottom: 8px; }
+.cat-desc { font-size: 12px; color: var(--slate); line-height: 1.7; }
+.cat-items { list-style: none; margin-top: 12px; }
+.cat-items li { font-size: 11px; color: var(--slate); padding: 4px 0; display: flex; gap: 7px; align-items: flex-start; }
+.cat-items li::before { content: '—'; color: var(--dune); flex-shrink: 0; font-size: 10px; margin-top: 1px; }
+
+/* ── FREE VS PRO ── */
+.compare-section { padding: 64px 0 80px; border-top: 0.5px solid var(--mist); }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--mist); border: 0.5px solid var(--mist); }
+.compare-card { padding: 36px 32px; }
+.compare-card.free { background: var(--white); }
+.compare-card.pro { background: var(--navy); }
+.compare-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+.compare-card.free .compare-label { color: var(--slate); }
+.compare-card.pro .compare-label { color: var(--dune); }
+.compare-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; margin-bottom: 4px; line-height: 1; }
+.compare-card.free .compare-name { color: var(--navy); }
+.compare-card.pro .compare-name { color: var(--linen); }
+.compare-price { font-size: 13px; margin-bottom: 24px; }
+.compare-card.free .compare-price { color: var(--slate); }
+.compare-card.pro .compare-price { color: rgba(204,213,223,0.6); }
+.compare-divider { height: 0.5px; margin-bottom: 22px; }
+.compare-card.free .compare-divider { background: var(--mist); }
+.compare-card.pro .compare-divider { background: rgba(204,213,223,0.12); }
+.compare-list { list-style: none; }
+.compare-list li { font-size: 12px; padding: 6px 0; display: flex; align-items: flex-start; gap: 10px; }
+.compare-card.free .compare-list li { color: var(--slate); }
+.compare-card.pro .compare-list li { color: rgba(204,213,223,0.75); }
+.compare-list li .check { color: var(--dune); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.compare-list li .cross { color: var(--mist); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.compare-card.free .compare-list li .check { color: var(--navy); }
+.compare-btn { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 24px; text-decoration: none; margin-top: 28px; border: 1px solid; transition: background 0.2s; }
+.compare-card.free .compare-btn { color: var(--navy); border-color: var(--mist); }
+.compare-card.free .compare-btn:hover { background: var(--linen); }
+.compare-card.pro .compare-btn { color: var(--ink); background: var(--dune); border-color: var(--dune); }
+.compare-card.pro .compare-btn:hover { background: #d4a385; }
+
+/* ── SOCIAL PROOF ── */
+.proof-section { background: var(--navy); padding: 80px 72px; }
+.proof-inner { max-width: 1100px; margin: 0 auto; }
+.proof-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+.proof-label::before { content: ''; width: 16px; height: 0.5px; background: var(--dune); }
+.testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(204,213,223,0.06); }
+.testimonial { background: transparent; padding: 28px 24px; border-right: 0.5px solid rgba(204,213,223,0.08); }
+.testimonial:last-child { border-right: none; }
+.testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; font-style: italic; color: rgba(231,223,217,0.85); line-height: 1.6; margin-bottom: 18px; }
+.testimonial-attr { font-size: 11px; color: rgba(111,119,137,0.6); letter-spacing: 0.04em; }
+.testimonial-attr strong { color: rgba(204,213,223,0.5); font-weight: 500; }
+
+/* ── AUDIT CTA ── */
+.audit-cta { padding: 96px 0; }
+.audit-cta-box { background: var(--white); border: 0.5px solid var(--mist); padding: 56px; display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+.audit-cta-left {}
+.audit-cta-left .eyebrow-small { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dune); margin-bottom: 12px; }
+.audit-cta-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 400; color: var(--navy); line-height: 1.1; }
+.audit-cta-left h2 em { font-style: italic; color: var(--dune); }
+.audit-cta-left p { margin-top: 12px; font-size: 14px; color: var(--slate); line-height: 1.75; max-width: 400px; }
+.audit-cta-right { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.audit-cta-right .btn-dune { font-size: 12px; padding: 16px 32px; }
+.audit-note { font-size: 11px; color: var(--slate); }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); padding: 56px 72px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; color: var(--linen); }
+.footer-links { display: flex; gap: 28px; list-style: none; }
+.footer-links a { font-size: 12px; color: rgba(111,119,137,0.6); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--slate); }
+.footer-meta { font-size: 11px; color: rgba(111,119,137,0.4); text-align: right; line-height: 1.9; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 120px 24px 64px; }
+  .hero-layout { grid-template-columns: 1fr; gap: 40px; }
+  .page-wrap { padding: 0 24px; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .testimonials { grid-template-columns: 1fr; }
+  .testimonial { border-right: none; border-bottom: 0.5px solid rgba(204,213,223,0.08); }
+  .audit-cta-box { flex-direction: column; padding: 36px 24px; }
+  .proof-section { padding: 56px 24px; }
+  footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+  .footer-meta { text-align: left; }
+}
+@media (max-width: 600px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="k-box"><span class="k-letter">K</span></div>
+    <span class="nav-brand">KSANDR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html" class="active">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="listingiq-tool.html" class="nav-cta">Run Free Audit</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="services.html">Services</a>
+  <a href="listingiq.html">ListingIQ</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="listingiq-tool.html" class="nav-cta">Run Free Audit</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-layout">
+      <div class="hero-left">
+        <div class="eyebrow">ListingIQ by Ksandr</div>
+        <h1>Your listing has<br>untapped revenue.<br><em>Let's find it.</em></h1>
+        <p>A free AI-powered audit that scores your vacation rental across 6 categories and tells you exactly what to fix — in minutes. No fluff, no generic tips. Real insight built on real industry expertise.</p>
+        <div class="hero-cta-group">
+          <a href="listingiq-tool.html" class="btn-dune">Run My Free Audit</a>
+          <a href="services.html" class="btn-ghost">See All Services</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <!-- Sample Report Card -->
+        <div class="report-preview">
+          <div class="report-badge">Sample Report</div>
+          <div class="report-header">
+            <div>
+              <div class="report-title">Modern Pool Home — Scottsdale, AZ</div>
+              <div class="report-platform">Airbnb · Old Town Scottsdale</div>
+            </div>
+            <div style="text-align:right">
+              <div class="report-score-big">74</div>
+              <div class="report-score-label">Overall Score</div>
+            </div>
+          </div>
+          <div class="score-bars">
+            <div class="score-row">
+              <span class="score-label">Title & Keywords</span>
+              <div class="score-bar-wrap"><div class="score-bar high" style="width:88%"></div></div>
+              <span class="score-num">88</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">Photos & Visual</span>
+              <div class="score-bar-wrap"><div class="score-bar high" style="width:82%"></div></div>
+              <span class="score-num">82</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">Pricing Strategy</span>
+              <div class="score-bar-wrap"><div class="score-bar med" style="width:61%"></div></div>
+              <span class="score-num">61</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">Description</span>
+              <div class="score-bar-wrap"><div class="score-bar med" style="width:70%"></div></div>
+              <span class="score-num">70</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">Amenities</span>
+              <div class="score-bar-wrap"><div class="score-bar low" style="width:55%"></div></div>
+              <span class="score-num">55</span>
+            </div>
+            <div class="score-row">
+              <span class="score-label">Reviews & Trust</span>
+              <div class="score-bar-wrap"><div class="score-bar high" style="width:91%"></div></div>
+              <span class="score-num">91</span>
+            </div>
+          </div>
+          <div class="report-action">
+            <div class="action-label">Priority Action</div>
+            <div class="action-text">Add high-demand amenities (EV charging, workspace) to close the gap on comparable listings charging 18% more per night.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="page-wrap">
+  <div class="how-section">
+    <div class="section-header">
+      <div class="section-tag">The Process</div>
+      <h2 class="section-title">Four steps to <em>clarity.</em></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-name">Tell Us About Your Property</div>
+        <div class="step-desc">Platform, location, property type, bedrooms, nightly rate. The basic details that set your listing's context — takes under 90 seconds.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-name">Describe Your Listing</div>
+        <div class="step-desc">Your title, how you'd describe your photos, and the key amenities you offer. This is where the AI finds the gaps most owners don't see.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-name">Share Performance Data</div>
+        <div class="step-desc">Occupancy rate, average review score, and how you handle pricing. No sensitive data required — just enough to benchmark where you stand.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-name">Get Your Scored Report</div>
+        <div class="step-desc">A full audit across 6 categories — scored, prioritized, and actionable. Plus a revenue impact estimate and one clear priority action to take today.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories-section">
+    <div class="section-header">
+      <div class="section-tag">What We Analyze</div>
+      <h2 class="section-title">Six categories.<br>One <em>complete picture.</em></h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-num">01</div>
+        <div class="cat-name">Title & Keywords</div>
+        <div class="cat-desc">Your title is your listing's first impression — and your primary SEO signal. We analyze keyword coverage, search intent alignment, and character optimization.</div>
+        <ul class="cat-items">
+          <li>Keyword relevance and density</li>
+          <li>Search-intent alignment</li>
+          <li>Character count and platform rules</li>
+          <li>Differentiation from competing listings</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <div class="cat-num">02</div>
+        <div class="cat-name">Photos & Visual Appeal</div>
+        <div class="cat-desc">Photos drive booking decisions. We evaluate your visual presentation — cover photo strength, sequencing logic, and coverage of key selling spaces.</div>
+        <ul class="cat-items">
+          <li>Cover photo conversion potential</li>
+          <li>Room coverage completeness</li>
+          <li>Photo sequencing and storytelling</li>
+          <li>Comparison to market visual standards</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <div class="cat-num">03</div>
+        <div class="cat-name">Description & Copy</div>
+        <div class="cat-desc">Your description does the persuasion. We look at how effectively it communicates your property's value, addresses guest concerns, and converts browsers to bookers.</div>
+        <ul class="cat-items">
+          <li>Guest benefit framing</li>
+          <li>Unique selling point clarity</li>
+          <li>Objection handling in copy</li>
+          <li>Scanability and structure</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <div class="cat-num">04</div>
+        <div class="cat-name">Pricing Strategy</div>
+        <div class="cat-desc">Pricing is the most common place money is left behind. We analyze your rate positioning, gap coverage, and whether your pricing logic matches demand patterns.</div>
+        <ul class="cat-items">
+          <li>Rate benchmarking for your market</li>
+          <li>Seasonal and gap pricing gaps</li>
+          <li>Minimum night rule impact</li>
+          <li>Dynamic pricing tool usage</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <div class="cat-num">05</div>
+        <div class="cat-name">Amenities & Positioning</div>
+        <div class="cat-desc">The gap between what you have and what guests are filtering for is often invisible to owners. We map your amenities against high-demand search filters in your market.</div>
+        <ul class="cat-items">
+          <li>High-value amenity gap analysis</li>
+          <li>Filter-matching for your market</li>
+          <li>ROI of adding key amenities</li>
+          <li>Amenity highlighting in copy</li>
+        </ul>
+      </div>
+      <div class="cat-card">
+        <div class="cat-num">06</div>
+        <div class="cat-name">Reviews & Trust Signals</div>
+        <div class="cat-desc">Social proof shapes booking decisions at every stage. We look at your review volume, score, recency, and how well your listing uses trust signals to reassure guests.</div>
+        <ul class="cat-items">
+          <li>Review score and volume analysis</li>
+          <li>Recency and response rate</li>
+          <li>Guest communication indicators</li>
+          <li>Superhost / Premier status factors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FREE VS PRO -->
+<div class="page-wrap">
+  <div class="compare-section">
+    <div class="section-header">
+      <div class="section-tag">Plans</div>
+      <h2 class="section-title">Free audit or <em>Pro Report?</em></h2>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card free">
+        <div class="compare-label">Starter</div>
+        <div class="compare-name">Free Audit</div>
+        <div class="compare-price">No cost · Instant delivery</div>
+        <div class="compare-divider"></div>
+        <ul class="compare-list">
+          <li><span class="check">✓</span> 6-category scored report</li>
+          <li><span class="check">✓</span> Overall performance score</li>
+          <li><span class="check">✓</span> Quick wins (top 3 actions)</li>
+          <li><span class="check">✓</span> Revenue impact estimate</li>
+          <li><span class="check">✓</span> Priority action to take today</li>
+          <li><span class="cross">—</span> Competitor listing comparison</li>
+          <li><span class="cross">—</span> Custom keyword recommendations</li>
+          <li><span class="cross">—</span> Photo and description scoring</li>
+          <li><span class="cross">—</span> Platform-specific OTA guidance</li>
+        </ul>
+        <a href="listingiq-tool.html" class="compare-btn">Start Free Audit</a>
+      </div>
+      <div class="compare-card pro">
+        <div class="compare-label">Pro</div>
+        <div class="compare-name">Pro Report</div>
+        <div class="compare-price">$99 · 24–48 hour delivery</div>
+        <div class="compare-divider"></div>
+        <ul class="compare-list">
+          <li><span class="check">✓</span> Everything in the free audit</li>
+          <li><span class="check">✓</span> Competitor listing comparison</li>
+          <li><span class="check">✓</span> Custom keyword recommendations</li>
+          <li><span class="check">✓</span> Photo and description scoring</li>
+          <li><span class="check">✓</span> Platform-specific OTA guidance</li>
+          <li><span class="check">✓</span> Amenity gap vs. top-ranked comps</li>
+          <li><span class="check">✓</span> Seasonal pricing window analysis</li>
+          <li><span class="check">✓</span> 90-day action priority list</li>
+          <li><span class="check">✓</span> PDF report delivered to your inbox</li>
+        </ul>
+        <a href="contact.html" class="compare-btn">Get Pro Report — $99</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-section">
+  <div class="proof-inner">
+    <div class="proof-label">What Owners Are Saying</div>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-text">"I had no idea my amenity list was costing me filter placements. Fixed it in a weekend — bookings picked up within two weeks."</div>
+        <div class="testimonial-attr"><strong>Sarah T.</strong> · Self-managing owner, Scottsdale AZ</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">"The free audit alone gave me more actionable insight than anything I'd read on forums for months. The Pro Report was worth every dollar."</div>
+        <div class="testimonial-attr"><strong>Marcus R.</strong> · 3-unit portfolio, Nashville TN</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-text">"Finally an advisor who speaks both the OTA language and the AI language. The strategy session paid for itself in the first month."</div>
+        <div class="testimonial-attr"><strong>Lin & David K.</strong> · Small PM, Maui HI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUDIT CTA -->
+<div class="page-wrap" id="audit">
+  <div class="audit-cta">
+    <div class="audit-cta-box">
+      <div class="audit-cta-left">
+        <div class="eyebrow-small">Ready? Let's go.</div>
+        <h2>Run your free audit<br>in <em>under 5 minutes.</em></h2>
+        <p>Answer a few questions about your listing and get a full scored report with real recommendations — no card required, no fluff, no pitch calls unless you want one.</p>
+      </div>
+      <div class="audit-cta-right">
+        <a href="listingiq-tool.html" class="btn-dune">Launch ListingIQ Free Audit →</a>
+        <span class="audit-note">Free · No credit card · Instant results</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div style="border:1.5px solid var(--linen);width:32px;height:32px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--linen);line-height:1">K</span>
+    </div>
+    <span class="footer-brand">KSANDR</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="listingiq.html">ListingIQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-meta">
+    hello@ksandr.co<br>
+    Honolulu, Hawaii · 2026
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+</script>
+</body>
+</html>
