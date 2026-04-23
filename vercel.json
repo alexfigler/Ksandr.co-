@@ -1,9 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
-    { "source": "/api/audit",      "destination": "/api/audit.js"        },
-    { "source": "/api/leads",      "destination": "/api/leads.js"        },
     { "source": "/listingiq",      "destination": "/listingiq.html"      },
     { "source": "/listingiq-tool", "destination": "/listingiq-tool.html" },
     { "source": "/services",       "destination": "/services.html"       },
