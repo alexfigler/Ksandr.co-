@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, PATCH, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -13,7 +13,6 @@ export default async function handler(req, res) {
   const apiKey = process.env.AIRTABLE_API_KEY;
   if (!baseId || !apiKey) return res.status(500).json({ error: 'Airtable not configured' });
 
-  // PATCH — update status
   if (req.method === 'PATCH') {
     const { recordId, status } = req.body;
     if (!recordId || !status) return res.status(400).json({ error: 'Missing recordId or status' });
@@ -29,21 +28,20 @@ export default async function handler(req, res) {
     }
   }
 
-  // GET — fetch all leads
   if (req.method === 'GET') {
     try {
       const url = `https://api.airtable.com/v0/${baseId}/Leads?maxRecords=200`;
       const atRes = await fetch(url, { headers: { 'Authorization': `Bearer ${apiKey}` } });
       if (!atRes.ok) {
         const errBody = await atRes.text();
-        return res.status(500).json({ error: 'Airtable fetch error', status: atRes.status, detail: errBody, baseId: baseId, keyStart: apiKey ? apiKey.substring(0,8) : 'missing' });
+        return res.status(500).json({ error: 'Airtable fetch error', status: atRes.status, detail: errBody });
       }
       const data = await atRes.json();
       const leads = (data.records || []).map(r => ({
         id: r.id,
         name: r.fields['Name'] || '',
         email: r.fields['Email'] || '',
-        submitted: r.fields['Submitted'] || '',
+        submitted: r.fields['Submitted (Date with time)'] || '',
         listingUrl: r.fields['Listing URL'] || '',
         platform: r.fields['Platform'] || '',
         listingName: r.fields['Listing Name'] || '',
