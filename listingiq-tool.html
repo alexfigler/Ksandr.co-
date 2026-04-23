@@ -437,7 +437,7 @@ function startScan(userName){
     extra:val('f-extra')
   };
 
-  fetch('/api/audit',{
+  fetch('https://quiet-star-8c2bksandr-audit.figleralexander.workers.dev/',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(payload)
