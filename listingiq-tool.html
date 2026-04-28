@@ -121,6 +121,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 40px;d
 .screen{display:none}
 .screen.active{display:block;animation:fadeUp .4s ease forwards}
 @media(max-width:500px){.card{padding:24px 18px}.report-head{margin:-24px -18px 20px;padding:22px 18px}.grid2{grid-template-columns:1fr}nav{padding:0 18px}}
+
+.photo-drop{border:1.5px dashed var(--mist);padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--white)}
+.photo-drop:hover,.photo-drop.dragover{border-color:var(--dune);background:rgba(227,181,155,.04)}
+.photo-drop-icon{font-size:28px;margin-bottom:8px;opacity:.5}
+.photo-drop-text{font-size:13px;color:var(--slate);margin-bottom:4px}
+.photo-drop-link{color:var(--navy);text-decoration:underline}
+.photo-drop-sub{font-size:11px;color:var(--mist)}
+.photo-previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.photo-thumb{position:relative;width:72px;height:72px}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;border:.5px solid var(--mist)}
+.photo-thumb-label{position:absolute;bottom:0;left:0;right:0;background:rgba(61,70,96,.75);font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--linen);text-align:center;padding:2px}
+.photo-thumb-remove{position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:var(--navy);color:var(--linen);border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;line-height:1}
 </style>
 </head>
 <body>
@@ -261,11 +273,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 40px;d
         </div>
 
         <div class="field">
-          <label>Describe your photos</label>
-          <textarea id="f-photos" rows="2" placeholder="e.g. Professional photos, cover is living room, have all bedrooms, kitchen, bathroom, outdoor patio. No drone shots."></textarea>
-          <div class="where-to-find">
-            <p>&#8594; Just describe what rooms/subjects are covered and whether they're professional or DIY</p>
+          <label>Your listing photos</label>
+          <div class="photo-drop" id="photo-drop" onclick="document.getElementById('photo-input').click()" ondragover="photoDragOver(event)" ondragleave="photoDragLeave(event)" ondrop="photoDrop(event)">
+            <div class="photo-drop-icon">&#128247;</div>
+            <div class="photo-drop-text">Drop photos here or <span class="photo-drop-link">browse</span></div>
+            <div class="photo-drop-sub">Up to 10 photos · JPG, PNG, WEBP · Cover photo first</div>
           </div>
+          <input type="file" id="photo-input" multiple accept="image/*" style="display:none" onchange="photoSelected(event)">
+          <div id="photo-previews" class="photo-previews"></div>
+          <div class="where-to-find">
+            <p>&#8594; Upload your actual listing photos — we'll analyze cover choice, room coverage, and visual appeal<br>
+            &#8594; Or just describe them below if you prefer not to upload</p>
+          </div>
+          <textarea id="f-photos" rows="2" placeholder="Optional: describe your photos if not uploading — e.g. Professional, cover is living room, have all rooms covered, no drone shots."></textarea>
         </div>
 
       </div>
@@ -525,6 +545,8 @@ function startAudit(userName,userEmail){
     pricingTool:val('f-pricing'),
     minNights:val('f-minnights'),
     goals:val('f-goals'),
+    photos:val('f-photos'),
+    photoData:uploadedPhotos.map(p=>({dataUrl:p.dataUrl,type:p.type})),
     extra:val('f-extra'),
     units:val('f-units'),
     userName,userEmail
@@ -626,6 +648,54 @@ function renderReport(r,name){
       if(b)b.style.width=(r.categories[i].score||0)+'%';
     },400+i*120);
   });
+}
+
+
+// Photo upload handling
+let uploadedPhotos = [];
+
+function photoDragOver(e){
+  e.preventDefault();
+  document.getElementById('photo-drop').classList.add('dragover');
+}
+function photoDragLeave(e){
+  document.getElementById('photo-drop').classList.remove('dragover');
+}
+function photoDrop(e){
+  e.preventDefault();
+  document.getElementById('photo-drop').classList.remove('dragover');
+  handlePhotoFiles(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')));
+}
+function photoSelected(e){
+  handlePhotoFiles(Array.from(e.target.files));
+}
+function handlePhotoFiles(files){
+  const remaining = 10 - uploadedPhotos.length;
+  files.slice(0, remaining).forEach((file, idx) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      uploadedPhotos.push({ name: file.name, dataUrl: e.target.result, type: file.type });
+      renderPhotoPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function removePhoto(idx){
+  uploadedPhotos.splice(idx, 1);
+  renderPhotoPreviews();
+}
+function renderPhotoPreviews(){
+  const wrap = document.getElementById('photo-previews');
+  wrap.innerHTML = uploadedPhotos.map((p, i) => `
+    <div class="photo-thumb">
+      <img src="${p.dataUrl}" alt="Photo ${i+1}">
+      <div class="photo-thumb-label">${i===0?'Cover':'#'+(i+1)}</div>
+      <button class="photo-thumb-remove" onclick="removePhoto(${i})">&#215;</button>
+    </div>`).join('');
+  const drop = document.getElementById('photo-drop');
+  drop.querySelector('.photo-drop-sub').textContent = uploadedPhotos.length > 0
+    ? uploadedPhotos.length + ' photo' + (uploadedPhotos.length>1?'s':'') + ' ready · Add up to ' + (10-uploadedPhotos.length) + ' more'
+    : 'Up to 10 photos · JPG, PNG, WEBP · Cover photo first';
 }
 
 setStep(1);
