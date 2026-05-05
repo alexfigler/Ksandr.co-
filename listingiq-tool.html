@@ -671,11 +671,23 @@ function photoSelected(e){
 }
 function handlePhotoFiles(files){
   const remaining = 10 - uploadedPhotos.length;
-  files.slice(0, remaining).forEach((file, idx) => {
+  files.slice(0, remaining).forEach(file => {
+    const img = new Image();
     const reader = new FileReader();
     reader.onload = (e) => {
-      uploadedPhotos.push({ name: file.name, dataUrl: e.target.result, type: file.type });
-      renderPhotoPreviews();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX = 800;
+        let w = img.width, h = img.height;
+        if (w > h) { if (w > MAX) { h = h * MAX / w; w = MAX; } }
+        else { if (h > MAX) { w = w * MAX / h; h = MAX; } }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+        uploadedPhotos.push({ name: file.name, dataUrl: compressed, type: 'image/jpeg' });
+        renderPhotoPreviews();
+      };
+      img.src = e.target.result;
     };
     reader.readAsDataURL(file);
   });
