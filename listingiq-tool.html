@@ -133,6 +133,126 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;padding:0 40px;d
 .photo-thumb img{width:100%;height:100%;object-fit:cover;border:.5px solid var(--mist)}
 .photo-thumb-label{position:absolute;bottom:0;left:0;right:0;background:rgba(61,70,96,.75);font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--linen);text-align:center;padding:2px}
 .photo-thumb-remove{position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:var(--navy);color:var(--linen);border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;line-height:1}
+
+/* REDESIGNED REPORT */
+.report-head{background:var(--navy);margin:-36px -36px 24px;padding:28px 36px 24px}
+.report-eyebrow{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dune);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.report-eyebrow-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--dune);flex-shrink:0}
+.report-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.report-title-wrap{flex:1;padding-right:16px}
+.report-listing{font-size:10px;color:rgba(204,213,223,.45);margin-bottom:6px;font-style:italic}
+.report-headline{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--linen);line-height:1.25}
+.score-wrap{text-align:right;flex-shrink:0}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:var(--linen);line-height:1}
+.score-lbl{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+.score-grade{font-family:'Cormorant Garamond',serif;font-size:20px;line-height:1;margin-top:2px}
+.report-summary{font-size:12px;color:rgba(204,213,223,.7);line-height:1.75;margin-bottom:16px}
+.report-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.06);border-top:.5px solid rgba(255,255,255,.06)}
+.report-stat{padding:12px 10px;text-align:center}
+.report-stat-label{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(204,213,223,.35);margin-bottom:4px}
+.report-stat-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--linen);line-height:1}
+.report-stat-sub{font-size:9px;color:rgba(111,119,137,.5);margin-top:2px}
+.section-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';display:inline-block;width:12px;height:.5px;background:var(--dune)}
+.market-note{background:rgba(227,181,155,.06);border:.5px solid rgba(227,181,155,.2);border-left:2px solid var(--dune);padding:10px 14px;font-size:11px;color:var(--slate);line-height:1.65;margin-bottom:14px}
+.cat-card{background:var(--white);border:.5px solid var(--mist);padding:14px 16px;margin-bottom:8px}
+.cat-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.cat-left{display:flex;align-items:center;gap:7px}
+.cat-status-icon{font-size:13px;font-weight:600;flex-shrink:0}
+.cat-name{font-size:13px;font-weight:500;color:var(--navy)}
+.cat-right{display:flex;align-items:center;gap:8px}
+.cat-badge{font-size:8px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border:.5px solid;border-radius:2px}
+.cat-score{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--navy);min-width:32px;text-align:right}
+.cat-bar-track{height:2px;background:var(--mist);margin:0 0 10px}
+.cat-bar-fill{height:100%;width:0%;transition:width .9s ease}
+.cat-finding{font-size:11px;color:var(--slate);line-height:1.6;margin-bottom:5px;padding:8px 10px;background:var(--linen)}
+.cat-action{font-size:11px;color:var(--navy);font-weight:500;padding:6px 0 0;display:flex;align-items:flex-start;gap:6px}
+.action-arrow{color:var(--dune);flex-shrink:0}
+.qw-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.qw-item{display:flex;gap:12px;background:var(--white);border:.5px solid var(--mist);padding:14px 16px}
+.qw-badge{width:28px;height:28px;border-radius:50%;background:var(--navy);color:var(--linen);font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qw-content{flex:1}
+.qw-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.qw-text{font-size:12px;color:var(--navy);line-height:1.6}
+.priority-box{background:var(--navy);padding:16px 20px;margin-bottom:14px}
+.priority-eyebrow{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dune);margin-bottom:7px}
+.priority-text{font-size:13px;color:var(--linen);line-height:1.65}
+.trust-section{background:var(--linen);border:.5px solid var(--mist);padding:16px 20px;margin-bottom:14px}
+.trust-header{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:8px}
+.trust-body p{font-size:11px;color:var(--slate);line-height:1.7}
+.pro-upsell{background:var(--navy);padding:20px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.pro-upsell-left{flex:1;min-width:200px}
+.pro-upsell-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dune);margin-bottom:6px}
+.pro-upsell-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--linen);margin-bottom:8px;line-height:1.25}
+.pro-upsell-text{font-size:11px;color:rgba(204,213,223,.6);line-height:1.6;margin-bottom:10px}
+.pro-upsell-list{display:flex;flex-direction:column;gap:4px}
+.pro-upsell-item{font-size:11px;color:rgba(204,213,223,.7);display:flex;gap:7px}
+.pro-upsell-right{min-width:160px}
+.consulting-box{display:flex;gap:14px;background:var(--white);border:.5px solid var(--mist);border-left:3px solid var(--dune);padding:16px 20px;margin-bottom:14px;align-items:flex-start}
+.consulting-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.consulting-title{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.consulting-text{font-size:11px;color:var(--slate);line-height:1.65;margin-bottom:10px}
+.consulting-link{font-size:11px;font-weight:500;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--mist);padding-bottom:1px}
+.outreach-box{background:var(--linen);border:.5px solid var(--mist);border-left:2px solid var(--dune);padding:14px 18px;margin-bottom:14px}
+.outreach-title{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px}
+.outreach-text{font-size:11px;color:var(--slate);line-height:1.65}
+.report-cta{padding:16px 0 6px;border-top:.5px solid var(--mist);text-align:center}
+
+/* PRO REPORT */
+.comp-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.comp-card{background:var(--white);border:.5px solid var(--mist);padding:14px 16px;display:flex;gap:12px}
+.comp-rank{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--dune);flex-shrink:0;line-height:1;min-width:28px}
+.comp-body{flex:1}
+.comp-desc{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.comp-rate{font-size:13px;font-weight:500;color:var(--slate);margin-bottom:4px}
+.comp-advantages{font-size:11px;color:var(--slate);margin-bottom:3px}
+.comp-gap{font-size:11px;color:var(--navy);font-weight:500}
+.rev-legend{display:flex;gap:16px;margin-bottom:8px;font-size:11px}
+.legend-current{color:var(--slate)}
+.legend-optimized{color:#16a34a}
+.rev-chart{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.rev-month{display:flex;align-items:center;gap:8px;font-size:11px}
+.rev-month-name{min-width:28px;color:var(--slate)}
+.rev-month-bar-wrap{flex:1;display:flex;flex-direction:column;gap:2px}
+.rev-month-bar{height:6px;border-radius:2px;min-width:4px}
+.rev-month-bar.current{background:var(--mist)}
+.rev-month-bar.optimized{background:#16a34a}
+.rev-month-vals{min-width:100px;display:flex;gap:8px}
+.rev-current{color:var(--slate);font-size:10px}
+.rev-optimized{color:#16a34a;font-size:10px;font-weight:500}
+.rev-totals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--mist);border:.5px solid var(--mist);margin-bottom:14px}
+.rev-total-item{background:var(--white);padding:12px 14px;text-align:center}
+.rev-total-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
+.rev-total-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--navy)}
+.rev-total-val.optimized{color:#16a34a}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:var(--mist);border:.5px solid var(--mist)}
+.pricing-cell{background:var(--white);padding:12px 10px;text-align:center}
+.pricing-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:4px}
+.pricing-val{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--navy)}
+.title-option{background:var(--white);border:.5px solid var(--mist);border-left:2px solid var(--dune);padding:14px 16px;margin-bottom:8px}
+.title-option-num{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dune);margin-bottom:4px}
+.title-option-text{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:5px;line-height:1.4}
+.title-option-rationale{font-size:11px;color:var(--slate);line-height:1.55}
+.rewrite-desc{background:var(--white);border:.5px solid var(--mist);padding:14px 16px;margin-bottom:8px}
+.rewrite-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
+.rewrite-text{font-size:12px;color:var(--navy);font-style:italic;line-height:1.65}
+.keyword-gaps{background:var(--white);border:.5px solid var(--mist);padding:14px 16px;margin-bottom:8px}
+.keyword-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.keyword-tag{font-size:10px;background:rgba(227,181,155,.1);border:.5px solid rgba(227,181,155,.4);color:var(--navy);padding:3px 10px}
+.gap-card{background:var(--white);border:.5px solid var(--mist);border-left:2px solid #d97706;padding:14px 16px;margin-bottom:8px}
+.gap-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px}
+.gap-issue{font-size:12px;font-weight:500;color:var(--navy);flex:1}
+.gap-cost{font-size:11px;color:#d97706;white-space:nowrap;font-weight:500}
+.gap-body{display:flex;flex-direction:column;gap:6px}
+.gap-fix{font-size:11px;color:var(--slate);line-height:1.55}
+.gap-workaround{font-size:11px;color:var(--navy);line-height:1.55;background:rgba(227,181,155,.06);border:.5px solid rgba(227,181,155,.2);padding:8px 10px}
+.weeks-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.week-card{background:var(--white);border:.5px solid var(--mist);padding:14px 16px}
+.week-header{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dune);margin-bottom:3px}
+.week-impact{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.week-actions{padding-left:14px}
+.week-actions li{font-size:11px;color:var(--slate);line-height:1.55;padding:2px 0}
+@media(max-width:500px){.pricing-grid{grid-template-columns:1fr 1fr}.weeks-grid{grid-template-columns:1fr}.rev-totals{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -574,37 +694,50 @@ function startAudit(userName,userEmail){
 
 function renderReport(r,name){
   const nbhd=r.neighborhood||val('f-neighborhood')||'your market';
-  const gradeColor={A:'#16a34a',B:'var(--dune)',C:'var(--dune)',D:'#dc2626'}[r.grade]||'var(--dune)';
-  const sColor={strong:'#16a34a',good:'var(--navy)','needs work':'#d97706',critical:'#dc2626'};
-  const bColor={strong:'#16a34a',good:'var(--navy)','needs work':'var(--dune)',critical:'#dc2626'};
+  const gradeColor={A:'#16a34a',B:'#e3b59b',C:'#d97706',D:'#dc2626'}[r.grade]||'#e3b59b';
+  const gradeBg={A:'rgba(22,163,74,.1)',B:'rgba(227,181,155,.12)',C:'rgba(217,119,6,.1)',D:'rgba(220,38,38,.1)'}[r.grade]||'rgba(227,181,155,.12)';
+  const sColor={strong:'#16a34a',good:'#2563eb','needs work':'#d97706',critical:'#dc2626'};
+  const sIcon={strong:'✓',good:'✓','needs work':'△',critical:'✗'};
 
-  const cats=(r.categories||[]).map((c,i)=>`
-    <div class="cat-card">
-      <div class="cat-top">
+  const cats=(r.categories||[]).map((c,i)=>{
+    const pct=c.score||0;
+    const barColor=sColor[c.status]||'#3d4660';
+    return `<div class="cat-card">
+      <div class="cat-header">
         <div class="cat-left">
+          <span class="cat-status-icon" style="color:${barColor}">${sIcon[c.status]||'○'}</span>
           <span class="cat-name">${c.name}</span>
-          <span class="cat-badge" style="color:${sColor[c.status]||'var(--slate)'};border-color:${sColor[c.status]||'var(--slate)'}44">${c.status}</span>
         </div>
-        <span class="cat-score">${c.score}</span>
+        <div class="cat-right">
+          <span class="cat-badge" style="color:${barColor};background:${barColor}15;border-color:${barColor}30">${c.status}</span>
+          <span class="cat-score">${c.score}</span>
+        </div>
       </div>
-      <div class="cat-bar-track"><div class="cat-bar-fill" id="bar${i}" style="background:${bColor[c.status]||'var(--navy)'}"></div></div>
-      <p class="cat-finding">${c.finding}</p>
-      <p class="cat-action">&#8594; ${c.action}</p>
-    </div>`).join('');
+      <div class="cat-bar-track"><div class="cat-bar-fill" id="bar${i}" style="background:${barColor}"></div></div>
+      <div class="cat-finding">&#128269; ${c.finding}</div>
+      <div class="cat-action"><span class="action-arrow">&#8594;</span> ${c.action}</div>
+    </div>`;
+  }).join('');
 
   const qwins=(r.quickWins||[]).map((w,i)=>`
-    <div class="qw-item"><span class="qw-num">${i+1}</span><span class="qw-text">${w}</span></div>`).join('');
+    <div class="qw-item">
+      <div class="qw-badge">${i+1}</div>
+      <div class="qw-content">
+        <div class="qw-label">Week ${i+1} priority</div>
+        <div class="qw-text">${w}</div>
+      </div>
+    </div>`).join('');
 
   document.getElementById('report-content').innerHTML=`
     <div class="report-head">
-      <div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dune);margin-bottom:10px;display:flex;align-items:center;gap:8px">
-        <span style="display:inline-block;width:12px;height:.5px;background:var(--dune)"></span>
+      <div class="report-eyebrow">
+        <span class="report-eyebrow-dot"></span>
         ListingIQ Free Audit &middot; ${nbhd}
       </div>
       <div class="report-top">
-        <div>
+        <div class="report-title-wrap">
           ${r.listingName?'<div class="report-listing">'+r.listingName+'</div>':''}
-          <div class="report-title">${r.headline}</div>
+          <div class="report-headline">${r.headline}</div>
         </div>
         <div class="score-wrap">
           <div class="score-big">${r.overallScore}</div>
@@ -613,36 +746,84 @@ function renderReport(r,name){
         </div>
       </div>
       <p class="report-summary">${r.summary}</p>
-      <div class="rev-pill">
-        <div class="rev-label">Estimated Revenue Opportunity</div>
-        <div class="rev-val">${r.revenueImpact}</div>
-        <div class="rev-sub">if you implement these recommendations</div>
+      <div class="report-stats">
+        <div class="report-stat">
+          <div class="report-stat-label">Revenue Opportunity</div>
+          <div class="report-stat-val" style="color:var(--dune)">${r.revenueImpact}</div>
+          <div class="report-stat-sub">estimated monthly upside</div>
+        </div>
+        <div class="report-stat">
+          <div class="report-stat-label">Areas Scored</div>
+          <div class="report-stat-val">6</div>
+          <div class="report-stat-sub">categories analyzed</div>
+        </div>
+        <div class="report-stat">
+          <div class="report-stat-label">Quick Wins</div>
+          <div class="report-stat-val">3</div>
+          <div class="report-stat-sub">actions this week</div>
+        </div>
       </div>
     </div>
-    <div class="cats-label">6-Category Breakdown</div>
+
+    <div class="section-label">6-Category Breakdown</div>
+    <div class="market-note">&#128200; <strong>How we score:</strong> Each category is benchmarked against the top 20% of listings in ${nbhd}. Scores under 70 indicate a gap that's actively costing you bookings.</div>
     ${cats}
-    <div class="qw-box"><div class="qw-label">Quick Wins &mdash; Do These First</div>${qwins}</div>
+
+    <div class="section-label" style="margin-top:24px">Quick Wins — Do These First</div>
+    <div class="market-note">&#9889; These require no budget — just time. Listings that implement all 3 see an average 18% increase in click-through rate within 2 weeks.</div>
+    <div class="qw-list">${qwins}</div>
+
     <div class="priority-box">
-      <div class="priority-label">Priority Action &mdash; This Week</div>
-      <p class="priority-text">"${r.priorityAction}"</p>
+      <div class="priority-eyebrow">&#127919; Priority Action This Week</div>
+      <p class="priority-text">${r.priorityAction}</p>
     </div>
-    <div class="pro-box">
-      <div class="pro-label">Want to go deeper?</div>
-      <p class="pro-text"><strong>The Pro Report ($99)</strong> goes further &mdash; ${r.proTeaser}</p>
-      <div class="btn-row">
-        <button class="btn btn-dune" onclick="window.open('https://ksandr.co/contact','_blank')">Get Pro Report &mdash; $99</button>
+
+    <div class="trust-section">
+      <div class="trust-header">&#128161; What the data says about ${nbhd}</div>
+      <div class="trust-body">
+        <p>Listings in your neighborhood that rank in the top 10% share three things: a keyword-optimized title that matches how guests actually search, a minimum of 20 high-quality photos with a hero cover shot, and dynamic pricing enabled. These aren't nice-to-haves — they're the baseline for competitive visibility on OTA algorithms.</p>
+        <p style="margin-top:8px">The good news: most of these improvements cost nothing. The ones that do pay back within 60 days on average.</p>
       </div>
     </div>
+
+    <div class="pro-upsell">
+      <div class="pro-upsell-left">
+        <div class="pro-upsell-tag">Pro Report — $99</div>
+        <div class="pro-upsell-title">Go deeper with a full competitive analysis</div>
+        <div class="pro-upsell-text">${r.proTeaser}</div>
+        <div class="pro-upsell-list">
+          <div class="pro-upsell-item">&#10003; Top 5 competitor breakdown in ${nbhd}</div>
+          <div class="pro-upsell-item">&#10003; 12-month revenue projection with graph</div>
+          <div class="pro-upsell-item">&#10003; Seasonal pricing recommendations</div>
+          <div class="pro-upsell-item">&#10003; 3 rewritten title options</div>
+          <div class="pro-upsell-item">&#10003; Gap workarounds (no capital needed)</div>
+          <div class="pro-upsell-item">&#10003; 30-day action plan with revenue impact</div>
+        </div>
+      </div>
+      <div class="pro-upsell-right">
+        <button class="btn btn-dune" onclick="window.location.href='contact.html?pro=1'" style="width:100%;margin-bottom:10px">Get Pro Report &mdash; $99</button>
+        <div style="font-size:11px;color:rgba(204,213,223,.5);text-align:center">Delivered within 48 hours</div>
+      </div>
+    </div>
+
+    <div class="consulting-box">
+      <div class="consulting-icon">&#9965;</div>
+      <div class="consulting-body">
+        <div class="consulting-title">Want to talk through this together?</div>
+        <div class="consulting-text">Book a 1:1 Strategy Session with a Ksandr advisor. We'll walk through your full report, answer every question, and build a custom action plan specific to your listing and goals.</div>
+        <a href="contact.html" class="consulting-link">Book Strategy Session &mdash; $250 &#8594;</a>
+      </div>
+    </div>
+
     <div class="report-cta">
-      <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap">
-        <button class="btn btn-ghost" onclick="downloadPDF()" style="display:flex;align-items:center;gap:7px">&#11015; Download PDF Report</button>
-        <button class="btn btn-dune" onclick="window.open('STRIPE_LINK','_blank')" style="display:flex;align-items:center;gap:7px">&#9733; Get Pro Report &mdash; $99</button>
+      <div class="outreach-box">
+        <div class="outreach-title">We'll reach out to you personally.</div>
+        <div class="outreach-text">Expect a message from hello@ksandr.co within 1 business day. We'll walk through your results and map out your next steps.</div>
       </div>
-      <div style="background:var(--linen);border:.5px solid var(--mist);border-left:2px solid var(--dune);padding:16px 20px;margin-bottom:12px">
-        <p style="font-size:13px;color:var(--navy);font-weight:500;margin-bottom:4px">We'll reach out to you personally.</p>
-        <p style="font-size:12px;color:var(--slate);line-height:1.7">Expect a message from hello@ksandr.co within 1 business day. We'll walk through your results and map out your next steps.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="downloadPDF()" style="display:flex;align-items:center;gap:7px">&#11015; Download PDF</button>
       </div>
-      <p style="font-size:11px;color:var(--slate)">Mahalo, ${name}. Questions? <a href="mailto:hello@ksandr.co" style="color:var(--navy);font-weight:500">hello@ksandr.co</a></p>
+      <p style="font-size:11px;color:var(--slate);margin-top:14px;text-align:center">Mahalo, ${name}. Questions? <a href="mailto:hello@ksandr.co" style="color:var(--navy);font-weight:500">hello@ksandr.co</a></p>
     </div>`;
 
   show('report');
@@ -654,68 +835,6 @@ function renderReport(r,name){
   });
 }
 
-
-// Photo upload handling
-let uploadedPhotos = [];
-
-function photoDragOver(e){
-  e.preventDefault();
-  document.getElementById('photo-drop').classList.add('dragover');
-}
-function photoDragLeave(e){
-  document.getElementById('photo-drop').classList.remove('dragover');
-}
-function photoDrop(e){
-  e.preventDefault();
-  document.getElementById('photo-drop').classList.remove('dragover');
-  handlePhotoFiles(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')));
-}
-function photoSelected(e){
-  handlePhotoFiles(Array.from(e.target.files));
-}
-function handlePhotoFiles(files){
-  const remaining = 10 - uploadedPhotos.length;
-  files.slice(0, remaining).forEach(file => {
-    const img = new Image();
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const MAX = 800;
-        let w = img.width, h = img.height;
-        if (w > h) { if (w > MAX) { h = h * MAX / w; w = MAX; } }
-        else { if (h > MAX) { w = w * MAX / h; h = MAX; } }
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        const compressed = canvas.toDataURL('image/jpeg', 0.7);
-        uploadedPhotos.push({ name: file.name, dataUrl: compressed, type: 'image/jpeg' });
-        renderPhotoPreviews();
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-function removePhoto(idx){
-  uploadedPhotos.splice(idx, 1);
-  renderPhotoPreviews();
-}
-function renderPhotoPreviews(){
-  const wrap = document.getElementById('photo-previews');
-  wrap.innerHTML = uploadedPhotos.map((p, i) => `
-    <div class="photo-thumb">
-      <img src="${p.dataUrl}" alt="Photo ${i+1}">
-      <div class="photo-thumb-label">${i===0?'Cover':'#'+(i+1)}</div>
-      <button class="photo-thumb-remove" onclick="removePhoto(${i})">&#215;</button>
-    </div>`).join('');
-  const drop = document.getElementById('photo-drop');
-  drop.querySelector('.photo-drop-sub').textContent = uploadedPhotos.length > 0
-    ? uploadedPhotos.length + ' photo' + (uploadedPhotos.length>1?'s':'') + ' ready · Add up to ' + (10-uploadedPhotos.length) + ' more'
-    : 'Up to 10 photos · JPG, PNG, WEBP · Cover photo first';
-}
-
-
-// PDF Download
 function downloadPDF() {
   const printWin = window.open('', '_blank');
   const reportContent = document.getElementById('report-content').innerHTML;
@@ -784,6 +903,264 @@ ${reportContent}
 </body>
 </html>`);
   printWin.document.close();
+}
+
+
+// Pro report preview mode (admin only)
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.get('preview')==='pro') {
+  const previewBtn = document.createElement('div');
+  previewBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:999;';
+  previewBtn.innerHTML = '<button class="btn btn-navy" onclick="testProReport()" style="font-size:10px;padding:10px 16px">&#9733; Preview Pro Report</button>';
+  document.body.appendChild(previewBtn);
+}
+
+function testProReport() {
+  // Prefill with test data and trigger pro report
+  document.getElementById('f-platform').value = 'Airbnb';
+  document.getElementById('f-city').value = 'Miami';
+  document.getElementById('f-neighborhood').value = 'South Beach';
+  document.getElementById('f-type').value = 'Condo / apartment';
+  document.getElementById('f-beds').value = '2 bedrooms';
+  document.getElementById('f-sleeps').value = '4';
+  document.getElementById('f-rate').value = '225';
+  document.getElementById('f-title').value = 'Stylish South Beach Condo with Ocean Views | Walk to Beach';
+  document.getElementById('f-desc').value = 'Welcome to our beautiful oceanview condo in the heart of South Beach. This stunning 2-bedroom unit features floor-to-ceiling windows, a fully equipped kitchen, and a private balcony overlooking the Atlantic. Perfect for couples or small families looking to experience the best of Miami Beach.';
+  document.getElementById('f-amenities').value = 'Pool, gym, WiFi, full kitchen, washer/dryer, AC, TV, balcony, ocean view, dedicated workspace, free parking';
+  document.getElementById('f-occ').value = '75';
+  document.getElementById('f-score').value = '4.8';
+  document.getElementById('f-reviews').value = '50';
+  document.getElementById('f-pricing').value = 'No — manual pricing';
+  document.getElementById('f-minnights').value = '3';
+  document.getElementById('f-goals').value = 'Want to increase weeknight occupancy and figure out if my pricing is right for the neighborhood. Considering Pricelabs but not sure.';
+  document.getElementById('f-extra').value = 'Lowered rate by $30 last month and saw no change in bookings.';
+  document.getElementById('f-units').value = '1';
+  
+  // Trigger pro report
+  show('loading');
+  document.getElementById('load-name').textContent = 'Generating Pro Report preview...';
+  animateSteps();
+
+  fetch(WORKER, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      listingUrl: 'https://www.airbnb.com/rooms/test',
+      platform: 'Airbnb', city: 'Miami', neighborhood: 'South Beach',
+      propertyType: 'Condo / apartment', bedrooms: '2 bedrooms', sleeps: '4', nightlyRate: '225',
+      title: 'Stylish South Beach Condo with Ocean Views | Walk to Beach',
+      description: 'Welcome to our beautiful oceanview condo in the heart of South Beach...',
+      amenities: 'Pool, gym, WiFi, full kitchen, washer/dryer, AC, TV, balcony, ocean view',
+      occupancy: '75', reviewScore: '4.8', reviewCount: '50',
+      pricingTool: 'No — manual pricing', minNights: '3',
+      goals: 'Increase weeknight occupancy and optimize pricing',
+      extra: 'Lowered rate $30 and saw no change', units: '1',
+      userName: 'Ksandr Preview', userEmail: 'hello@ksandr.co',
+      reportType: 'pro'
+    })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    clearInterval(stepInterval);
+    if(!data.report) throw new Error(data.error||'No report');
+    if(data.isPro) renderProReport(data.report, 'Ksandr Preview');
+    else renderReport(data.report, 'Ksandr Preview');
+  })
+  .catch(err=>{
+    clearInterval(stepInterval);
+    show('gate');
+    const e=document.getElementById('gate-error');
+    e.textContent='Preview error: '+err.message;
+    e.style.display='block';
+  });
+}
+
+function renderProReport(r, name) {
+  const nbhd = r.neighborhood || 'your market';
+  const gradeColor = {A:'#16a34a',B:'#e3b59b',C:'#d97706',D:'#dc2626'}[r.grade]||'#e3b59b';
+  const sColor = {strong:'#16a34a',good:'#2563eb','needs work':'#d97706',critical:'#dc2626'};
+  const sIcon = {strong:'✓',good:'✓','needs work':'△',critical:'✗'};
+
+  const cats = (r.categories||[]).map((cat,i) => {
+    const barColor = sColor[cat.status]||'#3d4660';
+    return `<div class="cat-card">
+      <div class="cat-header">
+        <div class="cat-left">
+          <span class="cat-status-icon" style="color:${barColor}">${sIcon[cat.status]||'○'}</span>
+          <span class="cat-name">${cat.name}</span>
+        </div>
+        <div class="cat-right">
+          <span class="cat-badge" style="color:${barColor};background:${barColor}15;border-color:${barColor}30">${cat.status}</span>
+          <span class="cat-score">${cat.score}</span>
+        </div>
+      </div>
+      <div class="cat-bar-track"><div class="cat-bar-fill" id="probar${i}" style="background:${barColor}"></div></div>
+      <div class="cat-finding">&#128269; ${cat.finding}</div>
+      <div class="cat-action"><span class="action-arrow">&#8594;</span> ${cat.action}</div>
+    </div>`;
+  }).join('');
+
+  const comps = (r.competitorAnalysis?.topComps||[]).map((comp,i) => `
+    <div class="comp-card">
+      <div class="comp-rank">#${comp.rank}</div>
+      <div class="comp-body">
+        <div class="comp-desc">${comp.description}</div>
+        <div class="comp-rate">${comp.estimatedRate}/night</div>
+        <div class="comp-advantages">&#9733; ${comp.keyAdvantages}</div>
+        <div class="comp-gap">&#8594; Your gap: ${comp.yourGapVsThis}</div>
+      </div>
+    </div>`).join('');
+
+  const months = (r.revenueProjection?.months||[]).map(m => `
+    <div class="rev-month">
+      <div class="rev-month-name">${m.month}</div>
+      <div class="rev-month-bar-wrap">
+        <div class="rev-month-bar current" style="width:${Math.round((m.current/(r.revenueProjection?.annualOptimizedRevenue/12||1))*100)}%"></div>
+        <div class="rev-month-bar optimized" style="width:${Math.round((m.optimized/(r.revenueProjection?.annualOptimizedRevenue/12||1))*100)}%"></div>
+      </div>
+      <div class="rev-month-vals">
+        <span class="rev-current">$${m.current}</span>
+        <span class="rev-optimized">$${m.optimized}</span>
+      </div>
+    </div>`).join('');
+
+  const titleOpts = (r.listingRewrite?.titleOptions||[]).map((t,i) => `
+    <div class="title-option">
+      <div class="title-option-num">Option ${t.option}</div>
+      <div class="title-option-text">"${t.title}"</div>
+      <div class="title-option-rationale">${t.rationale}</div>
+    </div>`).join('');
+
+  const gaps = (r.closeTheGap||[]).map(g => `
+    <div class="gap-card">
+      <div class="gap-header">
+        <div class="gap-issue">&#9888; ${g.deficiency}</div>
+        <div class="gap-cost">${g.revenueImpact}</div>
+      </div>
+      <div class="gap-body">
+        <div class="gap-fix"><strong>Capital fix:</strong> ${g.capitalFix}</div>
+        <div class="gap-workaround">&#128161; <strong>Workaround:</strong> ${g.workaround}</div>
+      </div>
+    </div>`).join('');
+
+  const weeks = (r.thirtyDayPlan||[]).map(w => `
+    <div class="week-card">
+      <div class="week-header">Week ${w.week}</div>
+      <div class="week-impact">${w.expectedImpact}</div>
+      <ul class="week-actions">
+        ${(w.actions||[]).map(a=>'<li>'+a+'</li>').join('')}
+      </ul>
+    </div>`).join('');
+
+  document.getElementById('report-content').innerHTML = `
+    <div class="report-head">
+      <div class="report-eyebrow"><span class="report-eyebrow-dot"></span>ListingIQ Pro Report &middot; ${nbhd}</div>
+      <div class="report-top">
+        <div class="report-title-wrap">
+          ${r.listingName?'<div class="report-listing">'+r.listingName+'</div>':''}
+          <div class="report-headline">${r.headline}</div>
+        </div>
+        <div class="score-wrap">
+          <div class="score-big">${r.overallScore}</div>
+          <div class="score-lbl">Overall Score</div>
+          <div class="score-grade" style="color:${gradeColor}">Grade ${r.grade}</div>
+        </div>
+      </div>
+      <p class="report-summary">${r.summary}</p>
+      <div class="report-stats">
+        <div class="report-stat">
+          <div class="report-stat-label">Revenue Opportunity</div>
+          <div class="report-stat-val" style="color:var(--dune)">${r.revenueImpact}</div>
+          <div class="report-stat-sub">monthly upside</div>
+        </div>
+        <div class="report-stat">
+          <div class="report-stat-label">Annual Gap</div>
+          <div class="report-stat-val">$${r.revenueProjection?.annualGap||'—'}</div>
+          <div class="report-stat-sub">current vs optimized</div>
+        </div>
+        <div class="report-stat">
+          <div class="report-stat-label">Action Items</div>
+          <div class="report-stat-val">30</div>
+          <div class="report-stat-sub">day plan included</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">6-Category Audit</div>
+    ${cats}
+
+    <div class="section-label" style="margin-top:20px">Competitive Intelligence — ${nbhd}</div>
+    <div class="market-note">&#128205; ${r.competitorAnalysis?.marketContext||''}</div>
+    <div class="comp-list">${comps}</div>
+    <div class="market-note" style="margin-top:8px">&#128202; ${r.competitorAnalysis?.positioningSummary||''}</div>
+
+    <div class="section-label" style="margin-top:20px">12-Month Revenue Projection</div>
+    <div class="market-note">&#128200; Methodology: ${r.revenueProjection?.methodology||''}</div>
+    <div class="rev-legend"><span class="legend-current">&#9632; Current</span><span class="legend-optimized">&#9632; Optimized</span></div>
+    <div class="rev-chart">${months}</div>
+    <div class="rev-totals">
+      <div class="rev-total-item"><div class="rev-total-label">Current Annual</div><div class="rev-total-val">$${r.revenueProjection?.annualCurrentRevenue||'—'}</div></div>
+      <div class="rev-total-item"><div class="rev-total-label">Optimized Annual</div><div class="rev-total-val optimized">$${r.revenueProjection?.annualOptimizedRevenue||'—'}</div></div>
+      <div class="rev-total-item"><div class="rev-total-label">Annual Gap</div><div class="rev-total-val" style="color:#16a34a">+$${r.revenueProjection?.annualGap||'—'}</div></div>
+    </div>
+
+    <div class="section-label" style="margin-top:20px">Pricing Strategy</div>
+    <div class="pricing-grid">
+      <div class="pricing-cell"><div class="pricing-label">Weeknight</div><div class="pricing-val">${r.pricingStrategy?.recommendations?.weeknight||'—'}</div></div>
+      <div class="pricing-cell"><div class="pricing-label">Weekend</div><div class="pricing-val">${r.pricingStrategy?.recommendations?.weekend||'—'}</div></div>
+      <div class="pricing-cell"><div class="pricing-label">Peak Season</div><div class="pricing-val">${r.pricingStrategy?.recommendations?.peakSeason||'—'}</div></div>
+      <div class="pricing-cell"><div class="pricing-label">Shoulder</div><div class="pricing-val">${r.pricingStrategy?.recommendations?.shoulderSeason||'—'}</div></div>
+    </div>
+    <div class="market-note" style="margin-top:10px">&#128161; Tool recommendation: ${r.pricingStrategy?.toolRecommendation||''}</div>
+    <div class="market-note">&#128201; Gap night strategy: ${r.pricingStrategy?.recommendations?.gapNightStrategy||''}</div>
+
+    <div class="section-label" style="margin-top:20px">Listing Rewrite</div>
+    <div class="market-note">&#9997; ${r.listingRewrite?.otaAlgorithmTips||''}</div>
+    ${titleOpts}
+    <div class="rewrite-desc">
+      <div class="rewrite-label">Suggested opening paragraph</div>
+      <div class="rewrite-text">"${r.listingRewrite?.descriptionOpening||''}"</div>
+    </div>
+    <div class="keyword-gaps">
+      <div class="rewrite-label">Missing keywords</div>
+      <div class="keyword-list">${(r.listingRewrite?.keywordGaps||[]).map(k=>'<span class="keyword-tag">'+k+'</span>').join('')}</div>
+    </div>
+
+    <div class="section-label" style="margin-top:20px">Close the Gap — Workarounds</div>
+    <div class="market-note">For every major deficiency, here's the capital fix AND a workaround if budget doesn't allow it.</div>
+    ${gaps}
+
+    <div class="section-label" style="margin-top:20px">30-Day Action Plan</div>
+    <div class="weeks-grid">${weeks}</div>
+
+    <div class="priority-box" style="margin-top:16px">
+      <div class="priority-eyebrow">&#127919; Priority Action</div>
+      <p class="priority-text">${r.priorityAction}</p>
+    </div>
+
+    <div class="consulting-box" style="margin-top:14px">
+      <div class="consulting-icon">&#9965;</div>
+      <div class="consulting-body">
+        <div class="consulting-title">Questions about your Pro Report?</div>
+        <div class="consulting-text">Book a Strategy Session and we'll walk through every section together, answer your questions, and refine the action plan for your specific situation.</div>
+        <a href="contact.html" class="consulting-link">Book Strategy Session &mdash; $250 &#8594;</a>
+      </div>
+    </div>
+
+    <div class="report-cta">
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px">
+        <button class="btn btn-ghost" onclick="downloadPDF()" style="display:flex;align-items:center;gap:7px">&#11015; Download Pro Report PDF</button>
+      </div>
+      <p style="font-size:11px;color:var(--slate);text-align:center">Mahalo, ${name}. Questions? <a href="mailto:hello@ksandr.co" style="color:var(--navy);font-weight:500">hello@ksandr.co</a></p>
+    </div>`;
+
+  show('report');
+  (r.categories||[]).forEach((_,i)=>{
+    setTimeout(()=>{
+      const b=document.getElementById('probar'+i);
+      if(b)b.style.width=(r.categories[i].score||0)+'%';
+    },400+i*120);
+  });
 }
 
 setStep(1);
