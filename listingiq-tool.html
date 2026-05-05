@@ -634,6 +634,10 @@ function renderReport(r,name){
       </div>
     </div>
     <div class="report-cta">
+      <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="downloadPDF()" style="display:flex;align-items:center;gap:7px">&#11015; Download PDF Report</button>
+        <button class="btn btn-dune" onclick="window.open('STRIPE_LINK','_blank')" style="display:flex;align-items:center;gap:7px">&#9733; Get Pro Report &mdash; $99</button>
+      </div>
       <div style="background:var(--linen);border:.5px solid var(--mist);border-left:2px solid var(--dune);padding:16px 20px;margin-bottom:12px">
         <p style="font-size:13px;color:var(--navy);font-weight:500;margin-bottom:4px">We'll reach out to you personally.</p>
         <p style="font-size:12px;color:var(--slate);line-height:1.7">Expect a message from hello@ksandr.co within 1 business day. We'll walk through your results and map out your next steps.</p>
@@ -708,6 +712,78 @@ function renderPhotoPreviews(){
   drop.querySelector('.photo-drop-sub').textContent = uploadedPhotos.length > 0
     ? uploadedPhotos.length + ' photo' + (uploadedPhotos.length>1?'s':'') + ' ready · Add up to ' + (10-uploadedPhotos.length) + ' more'
     : 'Up to 10 photos · JPG, PNG, WEBP · Cover photo first';
+}
+
+
+// PDF Download
+function downloadPDF() {
+  const printWin = window.open('', '_blank');
+  const reportContent = document.getElementById('report-content').innerHTML;
+  printWin.document.write(`<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ListingIQ Report — Ksandr</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#3d4660;--slate:#6f7789;--mist:#ccd5df;--linen:#e7dfd9;--dune:#e3b59b;--white:#fff;--ink:#1e2130}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--navy);padding:0;font-size:12px}
+.report-head{background:var(--navy);padding:28px 36px 24px;margin-bottom:20px}
+.report-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.report-listing{font-size:10px;color:rgba(204,213,223,.5);margin-bottom:6px;font-style:italic}
+.report-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#e7dfd9;line-height:1.2;max-width:280px}
+.score-wrap{text-align:right}
+.score-big{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#e7dfd9;line-height:1}
+.score-lbl{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+.score-grade{font-family:'Cormorant Garamond',serif;font-size:18px}
+.report-summary{font-size:12px;color:rgba(204,213,223,.75);line-height:1.7}
+.rev-pill{margin-top:12px;padding:10px 14px;background:rgba(227,181,155,.12);border-left:2px solid var(--dune)}
+.rev-label{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--dune);margin-bottom:2px}
+.rev-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:#e7dfd9}
+.content{padding:20px 36px}
+.cats-label{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin-bottom:10px}
+.cat-card{border:.5px solid var(--mist);padding:12px 14px;margin-bottom:6px}
+.cat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.cat-name{font-size:12px;font-weight:500;color:var(--navy)}
+.cat-badge{font-size:7px;letter-spacing:.08em;text-transform:uppercase;padding:1px 5px;border:.5px solid}
+.cat-score{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--navy)}
+.cat-bar-track{height:2px;background:var(--mist);margin:5px 0 8px}
+.cat-bar-fill{height:100%}
+.cat-finding{font-size:11px;color:var(--slate);line-height:1.55}
+.cat-action{font-size:10px;color:var(--navy);font-weight:500;margin-top:4px}
+.qw-box{border:.5px solid var(--mist);padding:14px 16px;margin-bottom:10px}
+.qw-label{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:10px}
+.qw-item{display:flex;gap:10px;padding:7px 0;border-top:.5px solid var(--mist)}
+.qw-num{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--dune);flex-shrink:0;line-height:1.4}
+.qw-text{font-size:11px;color:var(--slate);line-height:1.55}
+.priority-box{background:var(--navy);padding:14px 16px;margin-bottom:10px}
+.priority-label{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--dune);margin-bottom:5px}
+.priority-text{font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:#e7dfd9;line-height:1.6}
+.footer-bar{background:var(--ink);padding:14px 36px;display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;letter-spacing:.12em;color:#e7dfd9}
+.footer-meta{font-size:9px;color:rgba(111,119,137,.5);text-align:right}
+.pro-box{background:#f7f4f1;border:.5px solid var(--mist);border-left:3px solid var(--dune);padding:14px 16px;margin-bottom:10px}
+.report-cta{display:none}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+${reportContent}
+<div class="footer-bar">
+  <div>
+    <div class="footer-brand">KSANDR</div>
+    <div style="font-size:9px;color:rgba(204,213,223,.4);margin-top:2px">ListingIQ Free Audit Report</div>
+  </div>
+  <div class="footer-meta">
+    hello@ksandr.co · ksandr.co<br>
+    Honolulu, Hawaii · Confidential
+  </div>
+</div>
+<script>window.onload=()=>{window.print();}<\/script>
+</body>
+</html>`);
+  printWin.document.close();
 }
 
 setStep(1);
